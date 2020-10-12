@@ -11,14 +11,14 @@
 		<!-- 记账 结束 -->
 		<!-- 支出统计 开始 -->
 		<my-card>
-			<text slot="cardName">支出统计</text>
+			<text slot="cardName" @click="goDetail('支出')">支出统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(payAll) }}元</text>
 			<my-list slot="cardContent"></my-list>
 		</my-card>
 		<!-- 支出统计 结束 -->
 		<!-- 收入统计 开始 -->
 		<my-card>
-			<text slot="cardName">收入统计</text>
+			<text slot="cardName" @click="goDetail('收入')">收入统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(income) }}元</text>
 			<my-list slot="cardContent"></my-list>
 		</my-card>
@@ -44,7 +44,7 @@
 		<!-- 账本总情况 开始 -->
 		<view class="total">
 			<view class="totalWord">目前收入总情况：</view>
-			<view class="totalNumber">{{ formatMoney(20000000000000056) }}元</view>
+			<view class="totalNumber">{{ formatMoney(income - payAll) }}元</view>
 		</view>
 		<!-- 账本总情况 结束 -->
 	</view>
@@ -77,7 +77,7 @@
 					'全款购房',
 					'中彩票',
 					'小说收益'
-				],
+				]
 			}
 		},
 		onLoad() {
@@ -89,6 +89,12 @@
 				let money = +this.money
 				console.log('数据类型：', Object.prototype.toString.call(money))
 				console.log('money:', money)
+			},
+			// 跳转到详情页面
+			goDetail(type) {
+				uni.navigateTo({
+					url: '/pages/detail/index'
+				})
 			}
 		}
 	}

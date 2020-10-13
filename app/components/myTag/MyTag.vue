@@ -16,13 +16,20 @@
  export default {
   name: 'my-tag',
   props: {
+   // 标签文字
    tagContent: {
     type: String,
     default: '无'
    },
+   // 颜色索引
    colorIndex: {
     type: Number,
     default: 0
+   },
+   // 点击方法是否打开
+   isOpen: {
+	   type: Boolean,
+	   default: false
    }
   },
   components: {
@@ -34,6 +41,7 @@
   methods: {
    // 打开对话框
    openPopup() {
+	if (!this.isOpen) return false
     this.$refs.popup.open()
    },
    // 关闭

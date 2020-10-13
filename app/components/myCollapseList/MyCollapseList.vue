@@ -9,7 +9,16 @@
 					<view class="listNumber">{{ formatMoney(item.number) }}元</view>
 				</view>
 				<view class="detail">
-					展开项
+					<view>时间：{{ item.time }}</view>
+					<view>流动：{{ item.flow }}</view>
+					<view>金额：{{ item.number }}</view>
+					<view class="tags">
+						<text>标签：</text>
+						<my-tag v-for="(unit, i) in item.tags" :key="i + unit" :tagContent="unit" :colorIndex="i"></my-tag>
+					</view>
+					<view>
+						备注：{{ item.info }}
+					</view>
 				</view>
 		    </uni-collapse-item>
 		</uni-collapse>
@@ -18,6 +27,7 @@
 </template>
 
 <script>
+	import myTag from '@/components/myTag/MyTag.vue'
 	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
 	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
 	import fun from '@/mix/fun/index.js'
@@ -25,6 +35,7 @@
 	export default {
 		name: 'my-collapse-list',
 		components: {
+			myTag,
 			uniCollapse,
 			uniCollapseItem
 		},
@@ -33,9 +44,9 @@
 				type: Array,
 				default: function() {
 					const list = [
-						{ tags: ['信息项1', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 300 },
-						{ tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: -200 },
-						{ tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 400 }
+						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项1', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '收入', number: 300 },
+						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '支出', number: -200 },
+						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '收入', number: 400 }
 					]
 					return list
 				}
@@ -75,9 +86,18 @@
 	}
 	
 	.detail {
+		font-size: 20rpx;
 		padding: 12px;
-		font-size: 10rpx;
-		height: 25rpx;
-		line-height: 25rpx;
+		color: #666;
+		
+		>view {
+			margin: 10rpx 0;
+		}
+		
+		.tags {
+			display: flex;
+			flex-wrap: wrap;
+			line-height: 70rpx;
+		}
 	}
 </style>

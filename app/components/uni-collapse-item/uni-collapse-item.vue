@@ -118,7 +118,6 @@
 		// border-color: $uni-border-color;
 		// border-bottom-width: 1px;
 		// border-bottom-style: solid;
-		box-shadow: 3rpx 3rpx 6rpx #aaa;
 	}
 
 

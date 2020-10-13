@@ -52,17 +52,6 @@
 			<uni-popup-dialog type="warn" mode="input" placeholder="新标签名称" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
 		</uni-popup>
 		<!-- 添加标签弹窗 结束 -->
-		<!-- 记账弹窗 开始 -->
-		<uni-popup ref="recordPopup" type="dialog">
-			<uni-popup-dialog type="warn" mode="form" :before-close="true" @close="close" @confirm="confirm">
-				<view slot="dialogContent" class="form">
-					<view class="recordInfo">
-						<textarea placeholder="备注内容" auto-height></textarea>
-					</view>
-				</view>
-			</uni-popup-dialog>
-		</uni-popup>
-		<!-- 记账弹窗 结束 -->
 	</view>
 </template>
 
@@ -96,21 +85,23 @@
 					'全款购房',
 					'中彩票',
 					'小说收益'
-				],
-				// 表单内容
-				form: {
-					info: '', // 备注
-					tags: [] // 标签
-				}
+				]
 			}
 		},
 		methods: {
 			// 记账功能
 			record() {
-				this.$refs.recordPopup.open()
 				let money = +this.money
-				console.log('数据类型：', Object.prototype.toString.call(money))
-				console.log('money:', money)
+				if (this.money === '' || isNaN(+this.money)) {
+					this.money = '请输入数字！'
+					setTimeout(() => {
+						this.money = ''
+					}, 1000)
+					return false
+				}
+				uni.navigateTo({
+					url: '/pages/record/index?money=' + money
+				})
 			},
 			// 跳转到详情页面
 			goDetail(type) {
@@ -123,7 +114,6 @@
 				this.$refs.addTagPopup.open()
 			},
 			close(done) {
-				// this.$refs.addTagPopup.close()
 				done()
 			},
 			confirm(done, val) {

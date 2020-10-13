@@ -53,7 +53,7 @@
 <script>
 	import myCard from '@/components/myCard/MyCard.vue'
 	import myTag from '@/components/myTag/MyTag.vue'
-	import myList from './children/Mylist.vue'
+	import myList from '@/components/myList/Mylist.vue'
 	import fun from '@/mix/fun/index.js'
 	
 	export default {

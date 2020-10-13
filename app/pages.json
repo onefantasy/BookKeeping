@@ -9,7 +9,7 @@
 		{
 			"path": "pages/detail/index",
 			"style": {
-				"navigationBarTitleText": "详情页"
+				"navigationBarTitleText": "统计"
 			}
 		}
 	],

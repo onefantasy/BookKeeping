@@ -1,30 +1,161 @@
 <template>
 	<view class="record bc">
 		<!-- 金额 开始 -->
-		<view class="money flex">
+		<view class="recordItem money flex">
 			<text>金额：</text>
 			<input type="text" placeholder="请输入金额" v-model="money" />
-			<text> 元</text>
+			<text>元</text>
 		</view>
 		<!-- 金额 结束 -->
 		<!-- 流动 开始 -->
-		<view class="flex">
-			
+		<view class="recordItem flex">
+			<text>流动：</text>
+			<text>{{ flow }}</text>
 		</view>
 		<!-- 流动 结束 -->
+		<!-- 标签选择 开始 -->
+		<view class="recordItem">
+			<text>标签</text>
+			<view class="tags">
+				<my-tag 
+					v-for="(item, index) in tags" 
+					:key="index + item" 
+					:tagContent="item" 
+					:isWhite="selectedTags.indexOf(item) < 0 ? true : false"
+					@click.native="selectTag(item)"
+				></my-tag>
+			</view>
+		</view>
+		<!-- 标签选择 结束 -->
+		<!-- 日期选择器 开始 -->
+		<view class="recordItem flex">
+			<text>日期：</text>
+			<picker mode="date" :value="date" @change="bindDateChange" class="picker">
+			    <view>{{date}}</view>
+			</picker>
+		</view>
+		<!-- 日期选择器 结束 -->
+		<!-- 时间选择器 开始 -->
+		<view class="recordItem flex">
+			<text>时间：</text>
+			<picker mode="time" :value="time" @change="bindTimeChange" class="picker">
+			    <view>{{ time }}</view>
+			</picker>
+		</view>
+		<!-- 时间选择器 结束 -->
+		<!-- 备注 开始 -->
+		<view class="recordItem flex">
+			<text>备注：</text>
+			<textarea placeholder="请输入备注信息" :auto-height="true" v-model="info" :maxlength="-1" class="textarea"/>
+		</view>
+		<!-- 备注 结束 -->
+		<!-- 保存按钮 开始 -->
+		<button type="default" class="save" @click="save">保存</button>
+		<!-- 保存按钮 结束 -->
 	</view>
 </template>
 
 <script>
+	import myTag from '@/components/myTag/MyTag.vue'
+	
+	function getDate(type) {
+		const date = new Date();
+	
+		let year = date.getFullYear();
+		let month = date.getMonth() + 1;
+		let day = date.getDate();
+
+		month = month > 9 ? month : '0' + month;;
+		day = day > 9 ? day : '0' + day;
+	
+		return `${year}-${month}-${day}`;
+	}
+	
+	function getTime() {
+		const date = new Date()
+		
+		let hour = date.getHours()
+		let min = date.getMinutes()
+		
+		hour = hour > 9 ? hour : '0' + hour
+		min = min > 9 ? min : '0' + min
+		return `${hour}:${min}`
+	}
+	
 	export default {
+		components: {
+			myTag
+		},
 		data() {
 			return {
-				money: ''
+				// 金额
+				money: 0,
+				// 标签列表
+				tags: [
+					'饮料',
+					'共享电单车',
+					'滴滴出行',
+					'工资',
+					'炒股利息',
+					'全款购房',
+					'中彩票',
+					'小说收益'
+				],
+				// 选中的标签
+				selectedTags: [],
+				// 日期
+				date: getDate(),
+				// 时间
+				time: getTime(),
+				// 备注
+				info: ''
+			}
+		},
+		computed: {
+			flow() {
+				return this.money >= 0 ? '收入' : '支出'
 			}
 		},
 		onLoad(e) {
-			this.money = e.money
-			console.log('携带的参数：', e)
+			this.money = e.money || 0
+		},
+		methods: {
+			// 选择标签
+			selectTag(tag) {
+				const index = this.selectedTags.indexOf(tag)
+				if (index < 0) {
+					this.selectedTags.push(tag)
+				} else {
+					this.selectedTags.splice(index, 1)
+				}
+			},
+			// 选择日期
+			bindDateChange(e) {
+				this.date = e.target.value
+			},
+			// 选择时间
+			bindTimeChange(e) {
+				this.time = e.target.value
+			},
+			// 保存
+			save() {
+				if (this.money === '' || isNaN(+this.money)) {
+					this.money = '请输入数字！'
+					setTimeout(() => {
+						this.money = ''
+					}, 1000)
+					return false
+				}
+				const data = {
+					money: this.money,
+					flow: this.flow,
+					date: this.date,
+					time: this.time,
+					tags: this.selectedTags,
+					info: this.info
+				}
+				console.log('保存的信息：', data)
+			}
 		}
 	}
 </script>
@@ -40,6 +171,10 @@
 			display: flex;
 		}
 		
+		.recordItem {
+			margin: 10rpx 0;
+		}
+		
 		.money {
 			line-height: 50rpx;
 			height: 50rpx;
@@ -48,6 +183,29 @@
 				text-align: center;
 				border-bottom: 5rpx solid #999;
 			}
+		}
+		
+		.tags {
+			display: flex;
+			margin-top: 10rpx;
+			border: 5rpx solid #666;
+			border-radius: 10rpx;
+			flex-wrap: wrap;
+		}
+		
+		.picker {
+			flex: 1;
+			text-align: center;
+			border-bottom: 5rpx solid #999;
+		}
+		
+		.textarea {
+			border-bottom: 5rpx solid #999;
+		}
+		
+		.save {
+			background-color: #fcd217;
+			color: #fff;
 		}
 	}
 </style>

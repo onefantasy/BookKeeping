@@ -1,6 +1,6 @@
 <template>
  <view>
-  <view class="tagBox yellow" :class="{ green: colorIndex % 3 === 1, blue: colorIndex % 3 === 2 }" @click="openPopup">
+  <view class="tagBox yellow" :class="{ green: colorIndex % 3 === 1, blue: colorIndex % 3 === 2, white: isWhite }" @click="openPopup">
    <text>{{ tagContent }}</text>
   </view>
   <uni-popup ref="popup" type="dialog">
@@ -28,6 +28,11 @@
    },
    // 点击方法是否打开
    isOpen: {
+	   type: Boolean,
+	   default: false
+   },
+   // 是否显示为白色
+   isWhite: {
 	   type: Boolean,
 	   default: false
    }
@@ -77,5 +82,9 @@
  }
  .blue {
   background-color: #1989FA;
+ }
+ .white {
+	 background-color: #F8F8F8;
+	 color: #666;
  }
 </style>

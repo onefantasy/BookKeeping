@@ -91,7 +91,6 @@
 		methods: {
 			// 记账功能
 			record() {
-				let money = +this.money
 				if (this.money === '' || isNaN(+this.money)) {
 					this.money = '请输入数字！'
 					setTimeout(() => {
@@ -99,6 +98,7 @@
 					}, 1000)
 					return false
 				}
+				const money = +this.money
 				uni.navigateTo({
 					url: '/pages/record/index?money=' + money
 				})

@@ -162,9 +162,9 @@
 			float: right;
 			height: 40rpx;
 			line-height: 40rpx;
-			font-size: 16rpx;
+			font-size: 20rpx;
 			background-color: #fcd217;
-			color: #fff;
+			color: #000;
 			
 		}
 		

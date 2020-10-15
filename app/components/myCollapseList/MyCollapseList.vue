@@ -63,7 +63,7 @@
 	.listItem {
 		display: flex;
 		padding: 10rpx;
-		font-size: 10rpx;
+		font-size: 25rpx;
 		
 		.listTags {
 			width: 50%;
@@ -86,8 +86,8 @@
 	}
 	
 	.detail {
-		font-size: 20rpx;
-		padding: 12px;
+		font-size: 25rpx;
+		padding: 12rpx;
 		color: #666;
 		
 		>view {

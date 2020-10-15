@@ -37,7 +37,7 @@
 	.listItem {
 		display: flex;
 		padding: 10rpx;
-		font-size: 10rpx;
+		font-size: 25rpx;
 		
 		.listTags {
 			width: 50%;

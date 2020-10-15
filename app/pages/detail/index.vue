@@ -166,7 +166,7 @@
 
 <style scoped lang="scss">
 	.box {
-		min-height: calc(100vh - 44px);
+		min-height: calc(100vh);
 		
 		.nav {
 			display: flex;
@@ -174,7 +174,7 @@
 			box-shadow: 3rpx 3rpx 6rpx #aaa;
 			background-image: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(68, 68, 68, .8), rgba(0, 0, 0, .8));
 			position: fixed;
-			top: 44px;
+			// top: 44px;
 			width: 100%;
 			
 			view {

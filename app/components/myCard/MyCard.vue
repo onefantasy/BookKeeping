@@ -3,7 +3,7 @@
 		<view class="cardTitle">
 			<text class="cardName"><slot name="cardName">卡片名称</slot></text>
 			<view class="cardSubtitle">
-				<slot name="cardSubtitle"></slot>				
+				<slot name="cardSubtitle"></slot>
 			</view>
 		</view>
 		<view class="cardContent">
@@ -24,9 +24,7 @@
 		data() {
 			return {}
 		},
-		onLoad() {
-			console.log('我的卡片组件。')
-		}
+		onLoad() {}
 	}
 </script>
 
@@ -42,7 +40,7 @@
 	.cardTitle {
 		border-bottom: 3rpx solid #666;
 		color: #666;
-		font-size: 50rpx;
+		font-size: 36rpx;
 		display: flex;
 		
 		.cardName {

@@ -3,7 +3,7 @@
 		<!-- 金额 开始 -->
 		<view class="recordItem money flex">
 			<text>金额：</text>
-			<input type="text" placeholder="请输入金额" v-model="money" />
+			<input type="text" placeholder="请输入金额" v-model="money" class="input" />
 			<text>元</text>
 		</view>
 		<!-- 金额 结束 -->
@@ -31,7 +31,7 @@
 		<view class="recordItem flex">
 			<text>日期：</text>
 			<picker mode="date" :value="date" @change="bindDateChange" class="picker">
-			    <view>{{date}}</view>
+			    <view>{{ date }}</view>
 			</picker>
 		</view>
 		<!-- 日期选择器 结束 -->
@@ -199,8 +199,14 @@
 			border-bottom: 5rpx solid #999;
 		}
 		
+		.input {
+			font-size: 36rpx;
+		}
+		
 		.textarea {
+			flex: 1;
 			border-bottom: 5rpx solid #999;
+			font-size: 36rpx;
 		}
 		
 		.save {

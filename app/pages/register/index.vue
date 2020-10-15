@@ -9,16 +9,13 @@
 		<view class="inputBox">
 			<input type="text" v-model="name" placeholder="账户" class="input" />
 			<input type="password" v-model="password" placeholder="密码" class="input" />
+			<input type="password" v-model="password2" placeholder="确认密码" class="input" />
 		</view>
 		<!-- 输入部分 结束 -->
 		
 		<!-- 按钮 开始 -->
 		<view class="buttons">
-			<button class="login bc" @click="login">登录</button>
-			<view class="line">
-				<a @click="goPage('/pages/password/index')">忘记密码</a>|
-				<a @click="goPage('/pages/register/index')">注册账号</a>
-			</view>
+			<button class="login bc" @click="regiter">注册</button>
 		</view>
 		<!-- 按钮 结束 -->
 	</view>
@@ -29,21 +26,20 @@
 		data() {
 			return {
 				name: '', // 账户
-				password: '' // 密码
+				password: '', // 密码
+				password2: '' // 确认密码
 			}
 		},
 		methods: {
-			login() {
-				if (!this.name || !this.password) {
+			regiter() {
+				if (!this.name || !this.password || !this.password2 || (this.password !== this.password2)) {
 					return false
 				}
 				const data = {
 					name: this.name,
 					password: this.password
 				}
-				uni.reLaunch({
-					url: '/pages/index/index'
-				})
+				// done some api
 			},
 			// 跳转到其他页面
 			goPage(url) {

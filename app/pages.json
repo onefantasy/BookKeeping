@@ -23,6 +23,18 @@
 			"style": {
 				"navigationBarTitleText": "记账"
 			}
+		},
+		{
+			"path": "pages/register/index",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/password/index",
+			"style": {
+				"navigationBarTitleText": "密码"
+			}
 		}
 	],
 	"globalStyle": {

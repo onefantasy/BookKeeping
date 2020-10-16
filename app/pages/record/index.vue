@@ -18,10 +18,10 @@
 			<text>标签</text>
 			<view class="tags">
 				<my-tag 
-					v-for="(item, index) in tags" 
+					v-for="(item, index) in selectTags" 
 					:key="index + item" 
 					:tagContent="item" 
-					:isWhite="selectedTags.indexOf(item) < 0 ? true : false"
+					:isWhite="tags.indexOf(item) < 0 ? true : false"
 					@click.native="selectTag(item)"
 				></my-tag>
 			</view>
@@ -91,7 +91,9 @@
 				// 金额
 				money: 0,
 				// 标签列表
-				tags: [
+				tags: [],
+				// 选中的标签
+				selectTags: [
 					'饮料',
 					'共享电单车',
 					'滴滴出行',
@@ -101,37 +103,45 @@
 					'中彩票',
 					'小说收益'
 				],
-				// 选中的标签
-				selectedTags: [],
 				// 日期
 				date: getDate(),
 				// 时间
 				time: getTime(),
 				// 备注
-				info: ''
+				info: '',
+				// 资金流动
+				flow: ''
 			}
 		},
-		computed: {
-			flow() {
-				return this.money >= 0 ? '收入' : '支出'
+		// computed: {
+		// 	flow() {
+		// 		return this.money >= 0 ? '收入' : '支出'
+		// 	}
+		// },
+		watch: {
+			'money'() {
+				this.flow = this.money < 0 ? '支出' : '收入'
 			}
 		},
 		onLoad(e) {
 			this.money = e.money || 0
 			const keys = Object.keys(e)
 			for (let key of keys) {
-				console.log(key + ':', e[key])
+				if (key === 'tags') {
+					this[key] = e[key].split(',')
+					continue
+				}
 				this[key] = e[key]
 			}
 		},
 		methods: {
 			// 选择标签
 			selectTag(tag) {
-				const index = this.selectedTags.indexOf(tag)
+				const index = this.tags.indexOf(tag)
 				if (index < 0) {
-					this.selectedTags.push(tag)
+					this.tags.push(tag)
 				} else {
-					this.selectedTags.splice(index, 1)
+					this.tags.splice(index, 1)
 				}
 			},
 			// 选择日期
@@ -156,10 +166,9 @@
 					flow: this.flow,
 					date: this.date,
 					time: this.time,
-					tags: this.selectedTags,
+					tags: this.tags,
 					info: this.info
 				}
-				console.log('保存的信息：', data)
 			}
 		}
 	}

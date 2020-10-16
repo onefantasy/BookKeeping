@@ -5,13 +5,13 @@
 		    <uni-collapse-item v-for="(item, index) in list" :key="index">
 		        <view slot="title" class="listItem">
 					<view class="listTags">{{ index + 1 + '、' + item.tags.join('、') }}</view>
-					<view class="listTime">{{ item.time }}</view>
-					<view class="listNumber">{{ formatMoney(item.number) }}元</view>
+					<view class="listTime">{{ item.date + ' ' + item.time }}</view>
+					<view class="listmoney">{{ formatMoney(item.money) }}元</view>
 				</view>
 				<view class="detail" @click="goPage(item)">
-					<view>时间：{{ item.time }}</view>
+					<view>时间：{{ item.date + ' ' + item.time }}</view>
 					<view>流动：{{ item.flow }}</view>
-					<view>金额：{{ item.number }}</view>
+					<view>金额：{{ formatMoney(item.money) }}</view>
 					<view class="tags">
 						<text>标签：</text>
 						<my-tag v-for="(unit, i) in item.tags" :key="i + unit" :tagContent="unit" :colorIndex="i"></my-tag>
@@ -43,11 +43,7 @@
 			list: {
 				type: Array,
 				default: function() {
-					const list = [
-						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项1', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '收入', number: 300 },
-						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '支出', number: -200 },
-						{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', flow: '收入', number: 400 }
-					]
+					const list = []
 					return list
 				}
 			}
@@ -60,12 +56,10 @@
 			// 跳转到编辑页面
 			goPage(item) {
 				const keys = Object.keys(item)
-				console.log('键：', keys)
 				let param = ''
 				for (let key of keys) {
 					param += key + '=' + item[key] + '&'
 				}
-				console.log('param：', param)
 				uni.navigateTo({
 					url: '/pages/record/index?' + param
 				})
@@ -91,7 +85,7 @@
 			text-align: center;
 		}
 		
-		.listNumber {
+		.listmoney {
 			flex: 1;
 			text-align: right;
 			overflow: hidden;

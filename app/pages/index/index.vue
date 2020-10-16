@@ -96,10 +96,10 @@
 			// 记账功能
 			record() {
 				if (this.money === '' || isNaN(+this.money)) {
-					this.money = '请输入数字！'
-					setTimeout(() => {
-						this.money = ''
-					}, 1000)
+					uni.showToast({
+						title: '请输入数字！',
+						icon: 'none'
+					})
 					return false
 				}
 				const money = +this.money

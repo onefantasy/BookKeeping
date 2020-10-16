@@ -36,6 +36,11 @@
 		methods: {
 			login() {
 				if (!this.name || !this.password) {
+					uni.showToast({
+						title: '请先输入账户密码！',
+						duration: 2000,
+						icon: 'none'
+					})
 					return false
 				}
 				const data = {

@@ -8,7 +8,7 @@
 					<view class="listTime">{{ item.time }}</view>
 					<view class="listNumber">{{ formatMoney(item.number) }}元</view>
 				</view>
-				<view class="detail">
+				<view class="detail" @click="goPage(item)">
 					<view>时间：{{ item.time }}</view>
 					<view>流动：{{ item.flow }}</view>
 					<view>金额：{{ item.number }}</view>
@@ -55,6 +55,21 @@
 		mixins: [fun],
 		data() {
 			return {}
+		},
+		methods: {
+			// 跳转到编辑页面
+			goPage(item) {
+				const keys = Object.keys(item)
+				console.log('键：', keys)
+				let param = ''
+				for (let key of keys) {
+					param += key + '=' + item[key] + '&'
+				}
+				console.log('param：', param)
+				uni.navigateTo({
+					url: '/pages/record/index?' + param
+				})
+			}
 		}
 	}
 </script>

@@ -88,6 +88,10 @@
 				]
 			}
 		},
+		onShow() {
+			// 重置金额
+			this.money = ''
+		},
 		methods: {
 			// 记账功能
 			record() {
@@ -130,9 +134,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		// background-color: #f7e8aa;
 		min-height: calc(100vh - 44px);
-		// margin-top: 44px;
 		padding: 30rpx 0;
 
 		// 记账 开始
@@ -165,7 +167,7 @@
 			font-size: 20rpx;
 			background-color: #fcd217;
 			color: #000;
-			
+			margin-bottom: 10rpx;
 		}
 		
 		.tagBox {

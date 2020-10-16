@@ -16,7 +16,8 @@
 		<view class="buttons">
 			<button class="login bc" @click="login">登录</button>
 			<view class="line">
-				<a @click="goPage('/pages/password/index')">忘记密码</a>|
+				<a @click="goPage('/pages/password/index')">忘记密码</a>
+				<text>|</text>
 				<a @click="goPage('/pages/register/index')">注册账号</a>
 			</view>
 		</view>
@@ -41,8 +42,21 @@
 					name: this.name,
 					password: this.password
 				}
-				uni.reLaunch({
-					url: '/pages/index/index'
+				this.$store.dispatch('user/loginAction', data).then(res => {
+					uni.showToast({
+						title: '登录成功！',
+						duration: 2000,
+						icon: 'none'
+					})
+					uni.reLaunch({
+						url: '/pages/index/index'
+					})
+				}).catch(err => {
+					uni.showToast({
+						title: '登录失败！',
+						duration: 2000,
+						icon: 'none'
+					})
 				})
 			},
 			// 跳转到其他页面
@@ -97,6 +111,10 @@
 				font-size: 25rpx;
 				text-decoration: underline;
 				margin-top: 20rpx;
+				
+				text {
+					margin: 0 10rpx;
+				}
 			}
 		}
 	}

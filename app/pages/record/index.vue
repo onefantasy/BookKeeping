@@ -118,6 +118,11 @@
 		},
 		onLoad(e) {
 			this.money = e.money || 0
+			const keys = Object.keys(e)
+			for (let key of keys) {
+				console.log(key + ':', e[key])
+				this[key] = e[key]
+			}
 		},
 		methods: {
 			// 选择标签

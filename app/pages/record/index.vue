@@ -113,11 +113,6 @@
 				flow: ''
 			}
 		},
-		// computed: {
-		// 	flow() {
-		// 		return this.money >= 0 ? '收入' : '支出'
-		// 	}
-		// },
 		watch: {
 			'money'() {
 				this.flow = this.money < 0 ? '支出' : '收入'

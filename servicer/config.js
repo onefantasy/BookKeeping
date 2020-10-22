@@ -6,7 +6,7 @@ const server_baseUrl = '127.0.0.1'
 
 // 数据库配置
 const sql = {
-    database: 'test', //数据库名称
+    database: 'book_keeping', //数据库名称
     user: 'root', //mysql用户名
     password: '123456', //mysql密码
     host: '127.0.0.1', //服务器ip

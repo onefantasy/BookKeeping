@@ -21,14 +21,14 @@ const users = sequelize.define('users', {
 }, {freezeTableName: true})
 
 // 创建管理员账号 开始
-users.findOne({ where: { role: 'admin' } }).then(res => {
+users.findOne({ where: { account: 'admin' } }).then(res => {
   if (!res) {
     // 如果不存在管理员账号，则创建
     // 加密用的盐
     const slat = bcrypt.genSaltSync(10)
     // 插入数据库时，对密码进行加密
     const password = bcrypt.hashSync('admin123', slat)
-    const user = users.create({
+    users.create({
       account: 'admin',
       password
     })

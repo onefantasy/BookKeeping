@@ -1,5 +1,5 @@
 // 配置服务器端口号
-const server_port = '8081'
+const server_port = '8082'
 
 // 当前服务器所在的地址
 const server_baseUrl = '127.0.0.1'

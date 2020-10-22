@@ -14,7 +14,7 @@ router.get('/', function (ctx, next) {
 })
 
 // 注册
-router.post('/register', function (ctx, next) {
+router.post('/register', async (ctx, next) => {
 	const params = ctx.request.body
   // 加密用的盐
   const slat = bcrypt.genSaltSync(10)

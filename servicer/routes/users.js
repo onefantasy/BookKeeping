@@ -25,31 +25,53 @@ router.post('/register', async (ctx, next) => {
     ctx.body = {
       code: user ? 200 : 104,
       data: user,
-      message: user ? '创建成功' : '创建失败'
+      message: user ? '创建成功！' : '创建失败！'
     }
   } catch(err) {
     console.log('错误：', err)
     if (err.errors && err.errors[0].type === 'unique violation') {
       ctx.body = {
         code: 103,
-        message: '该账号已经存在'
+        message: '该账号已经存在！'
       }
       return false
     }
     ctx.body = {
       code: 104,
-      message: '出错了'
+      message: '出错了！'
     }
   }
 })
 
 // 登录
-router.post('/login', function (ctx, next) {
-	ctx.body = '登录接口，开发中。。。'
-})
-
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
+router.post('/login', async (ctx, next) => {
+	const params = ctx.request.body
+  const data = await users.findOne({
+    where: {
+      account: {
+        [Op.eq]: `${params.account}`
+      }
+    }
+  })
+  if (!data) {
+    ctx.body = {
+      code: 404,
+      message: '账号不存在！'
+    }
+  } else if (!bcrypt.compareSync(params.password, data.password)) {
+    // 对密码进行校验，如果不对，则返回下面语句
+    ctx.body = {
+      code: 103,
+      message: '密码错误！'
+    }
+  } else {
+    // 对密码进行校验，如果密码正确，则返回下面语句
+    await data.update({ latestTime: Date.now(), origin: ctx.header.origin })
+    ctx.body = {
+      code: 200,
+      message: '登录成功！',
+    }
+  }
 })
 
 module.exports = router

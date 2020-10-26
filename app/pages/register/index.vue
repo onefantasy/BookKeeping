@@ -7,7 +7,7 @@
 		<!-- 图标 结束 -->
 		<!-- 输入部分 开始 -->
 		<view class="inputBox">
-			<input type="text" v-model="name" placeholder="账户" class="input" />
+			<input type="text" v-model="account" placeholder="账户" class="input" />
 			<input type="password" v-model="password" placeholder="密码" class="input" />
 			<input type="password" v-model="password2" placeholder="确认密码" class="input" />
 		</view>
@@ -15,7 +15,7 @@
 		
 		<!-- 按钮 开始 -->
 		<view class="buttons">
-			<button class="login bc" @click="regiter">注册</button>
+			<button class="login bc" @click="register">注册</button>
 		</view>
 		<!-- 按钮 结束 -->
 	</view>
@@ -25,28 +25,51 @@
 	export default {
 		data() {
 			return {
-				name: '', // 账户
+				account: '', // 账户
 				password: '', // 密码
 				password2: '' // 确认密码
 			}
 		},
 		methods: {
-			regiter() {
-				if (!this.name || !this.password || !this.password2 || (this.password !== this.password2)) {
+			register() {
+				if (!this.account || !this.password || !this.password2) {
+					uni.showToast({
+						title: '请先输入信息！',
+						duration: 2000,
+						icon: 'none'
+					})
+					return false
+				}
+				if (this.password !== this.password2) {
+					uni.showToast({
+						title: '两次输入密码不一样！',
+						duration: 2000,
+						icon: 'none'
+					})
 					return false
 				}
 				const data = {
-					name: this.name,
+					account: this.account,
 					password: this.password
 				}
-				// done some api
-			},
-			// 跳转到其他页面
-			goPage(url) {
-				if (!url) return false
-				uni.navigateTo({
-					url
+				this.$store.dispatch('user/register', data).then(res => {
+					uni.showToast({
+						title: '注册成功！',
+						duration: 2000
+					})
+					this.resetInput()
+					setTimeout(() => {
+						uni.navigateTo({
+							url: '/pages/login/index'
+						})
+					}, 1500)
 				})
+			},
+			// 清空输入内容
+			resetInput() {
+				this.account = ''
+				this.password = ''
+				this.password2 = ''
 			}
 		}
 	}

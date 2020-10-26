@@ -1,4 +1,7 @@
-import { login } from '@/api/user.js'
+import { 
+	login,
+	register
+} from '@/api/user.js'
 
 const state = () => ({
   name: ''
@@ -9,8 +12,14 @@ const getters = {}
 
 // actions
 const actions = {
-	async loginAction({ commit }, data) {
+	// 登录
+	async login({ commit }, data) {
 		const result = await login(data)
+		return result
+	},
+	// 注册
+	async register({ commit }, data) {
+		const result = await register(data)
 		return result
 	}
 }

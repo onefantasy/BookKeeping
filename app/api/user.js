@@ -1,14 +1,17 @@
-// export default {
-// 	login(data) {
-// 		console.log('账户：', data.name)
-// 		console.log('密码：', data.password)
-// 		setTimeout(() => {
-// 			console.log('api返回！！')
-// 			return { status: 'ok' }
-// 		}, 3000)
-// 	}
-// }
+import request from '@/common/request.js'
 
 export function login(data) {
-	return { status: 'ok' }
+	return request({
+		url: '/users/login',
+		method: 'POST',
+		data
+	})
+}
+
+export function register(data) {
+	return request({
+		url: '/users/register',
+		method: 'POST',
+		data
+	})
 }

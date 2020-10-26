@@ -7,7 +7,7 @@
 		<!-- 图标 结束 -->
 		<!-- 输入部分 开始 -->
 		<view class="inputBox">
-			<input type="text" v-model="name" placeholder="账户" class="input" />
+			<input type="text" v-model="account" placeholder="账户" class="input" />
 			<input type="password" v-model="password" placeholder="密码" class="input" />
 		</view>
 		<!-- 输入部分 结束 -->
@@ -29,13 +29,13 @@
 	export default {
 		data() {
 			return {
-				name: '', // 账户
+				account: '', // 账户
 				password: '' // 密码
 			}
 		},
 		methods: {
 			login() {
-				if (!this.name || !this.password) {
+				if (!this.account || !this.password) {
 					uni.showToast({
 						title: '请先输入账户密码！',
 						duration: 2000,
@@ -44,10 +44,10 @@
 					return false
 				}
 				const data = {
-					name: this.name,
+					account: this.account,
 					password: this.password
 				}
-				this.$store.dispatch('user/loginAction', data).then(res => {
+				this.$store.dispatch('user/login', data).then(res => {
 					uni.showToast({
 						title: '登录成功！',
 						duration: 2000,
@@ -55,12 +55,6 @@
 					})
 					uni.reLaunch({
 						url: '/pages/index/index'
-					})
-				}).catch(err => {
-					uni.showToast({
-						title: '登录失败！',
-						duration: 2000,
-						icon: 'none'
 					})
 				})
 			},

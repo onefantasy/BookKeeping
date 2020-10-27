@@ -28,7 +28,12 @@
 			<text slot="cardName">支出标签</text>
 			<button slot="cardSubtitle" class="cardSubtitleButton" @click="addTag('支出')">添加</button>
 			<view slot="cardContent" class="tagBox">
-				<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+				<view v-if="tags[0]">
+					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+				</view>
+				<view v-else class="textNone">
+					暂无
+				</view>
 			</view>
 		</my-card>
 		<!-- 支出标签 结束 -->
@@ -37,7 +42,12 @@
 			<text slot="cardName">收入标签</text>
 			<button slot="cardSubtitle" class="cardSubtitleButton" @click="addTag('收入')">添加</button>
 			<view slot="cardContent" class="tagBox">
-				<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+				<view v-if="tags[0]">
+					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+				</view>
+				<view v-else class="textNone">
+					暂无
+				</view>
 			</view>
 		</my-card>
 		<!-- 收入标签 结束 -->
@@ -47,6 +57,11 @@
 			<view class="totalNumber">{{ formatMoney(income - payAll) }}元</view>
 		</view>
 		<!-- 账本总情况 结束 -->
+		<!-- 退出 开始 -->
+		<view class="logoutBox">
+			<button type="default" @click="logout">退出登录</button>
+		</view>
+		<!-- 退出 结束 -->
 		<!-- 添加标签弹窗 开始 -->
 		<uni-popup ref="addTagPopup" type="dialog">
 			<uni-popup-dialog type="warn" mode="input" placeholder="新标签名称" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
@@ -76,16 +91,7 @@
 				money: '', // 记账金额
 				payAll: 200, // 支出统计总金额
 				income: 200000000, // 收入统计金额
-				tags: [
-					'饮料',
-					'共享电单车',
-					'滴滴出行',
-					'工资',
-					'炒股利息',
-					'全款购房',
-					'中彩票',
-					'小说收益'
-				]
+				tags: []
 			}
 		},
 		onShow() {
@@ -123,6 +129,19 @@
 			confirm(done, val) {
 				done()
 				this.tags.push(val)
+			},
+			// 退出登录
+			logout() {
+				const account = this.$store.getters['user/account']
+				this.$store.dispatch('user/logout', { account }).then(res => {
+					uni.showToast({
+						title: '退出成功！',
+						icon: 'none'
+					})
+					uni.reLaunch({
+						url: '/pages/login/index'
+					})
+				})
 			}
 		}
 	}
@@ -200,5 +219,21 @@
 			}
 		}
 		// 记账弹窗 结束
+		
+		// 暂无问本样式
+		.textNone {
+			font-size: 30rpx;
+			font-weight: 700;
+			color: rgba(51, 51, 51, .4);
+		}
+		
+		// 退出登录 开始
+		.logoutBox {
+			button {
+				background-color: #f0ad4e;
+				color: #EEE;
+			}
+		}
+		// 退出登录 结束
 	}
 </style>

@@ -59,9 +59,7 @@
 					})
 					this.resetInput()
 					setTimeout(() => {
-						uni.navigateTo({
-							url: '/pages/login/index'
-						})
+						uni.navigateBack()
 					}, 1500)
 				})
 			},

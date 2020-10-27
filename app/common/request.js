@@ -19,9 +19,9 @@ async function request({ method, data, url } = {}) {
 			title: resData.message,
 			icon: 'none'
 		})
-		return Promise.reject(res)
+		return Promise.reject(resDate)
 	}
-	return res
+	return Promise.resolve(resData)
 }
 
 export default request

@@ -14,7 +14,7 @@
 		
 		<!-- 按钮 开始 -->
 		<view class="buttons">
-			<button class="login bc" @click="login">登录</button>
+			<button class="login bc" @click="login(account, password)">登录</button>
 			<view class="line">
 				<a @click="goPage('/pages/password/index')">忘记密码</a>
 				<text>|</text>
@@ -33,9 +33,16 @@
 				password: '' // 密码
 			}
 		},
+		mounted() {
+			const account = uni.getStorageSync('account')
+			const password = uni.getStorageSync('password')
+			if (account && password) {
+				this.login(account, password)
+			}
+		},
 		methods: {
-			login() {
-				if (!this.account || !this.password) {
+			login(account, password) {
+				if (!account || !password) {
 					uni.showToast({
 						title: '请先输入账户密码！',
 						duration: 2000,
@@ -44,8 +51,8 @@
 					return false
 				}
 				const data = {
-					account: this.account,
-					password: this.password
+					account,
+					password
 				}
 				this.$store.dispatch('user/login', data).then(res => {
 					uni.showToast({
@@ -53,6 +60,9 @@
 						duration: 2000,
 						icon: 'none'
 					})
+					// 登录缓存
+					uni.setStorageSync('account', account)
+					uni.setStorageSync('password', password)
 					uni.reLaunch({
 						url: '/pages/index/index'
 					})

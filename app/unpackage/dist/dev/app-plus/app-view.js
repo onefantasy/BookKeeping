@@ -1179,9 +1179,25 @@ var render = function() {
               attrs: { slot: "cardContent", _i: 17 },
               slot: "cardContent"
             },
-            _vm._l(_vm._$g(18, "f"), function(item, index, $20, $30) {
-              return _c("my-tag", { key: item, attrs: { _i: "18-" + $30 } })
-            }),
+            [
+              _vm._$g(18, "i")
+                ? _c(
+                    "v-uni-view",
+                    { attrs: { _i: 18 } },
+                    _vm._l(_vm._$g(19, "f"), function(item, index, $20, $30) {
+                      return _c("my-tag", {
+                        key: item,
+                        attrs: { _i: "19-" + $30 }
+                      })
+                    }),
+                    1
+                  )
+                : _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+                    [_vm._v("暂无")]
+                  )
+            ],
             1
           )
         ],
@@ -1189,18 +1205,18 @@ var render = function() {
       ),
       _c(
         "my-card",
-        { attrs: { _i: 19 } },
+        { attrs: { _i: 21 } },
         [
           _c(
             "v-uni-text",
-            { attrs: { slot: "cardName", _i: 20 }, slot: "cardName" },
+            { attrs: { slot: "cardName", _i: 22 }, slot: "cardName" },
             [_vm._v("收入标签")]
           ),
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(21, "sc"),
-              attrs: { slot: "cardSubtitle", _i: 21 },
+              staticClass: _vm._$g(23, "sc"),
+              attrs: { slot: "cardSubtitle", _i: 23 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -1213,13 +1229,29 @@ var render = function() {
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(22, "sc"),
-              attrs: { slot: "cardContent", _i: 22 },
+              staticClass: _vm._$g(24, "sc"),
+              attrs: { slot: "cardContent", _i: 24 },
               slot: "cardContent"
             },
-            _vm._l(_vm._$g(23, "f"), function(item, index, $21, $31) {
-              return _c("my-tag", { key: item, attrs: { _i: "23-" + $31 } })
-            }),
+            [
+              _vm._$g(25, "i")
+                ? _c(
+                    "v-uni-view",
+                    { attrs: { _i: 25 } },
+                    _vm._l(_vm._$g(26, "f"), function(item, index, $21, $31) {
+                      return _c("my-tag", {
+                        key: item,
+                        attrs: { _i: "26-" + $31 }
+                      })
+                    }),
+                    1
+                  )
+                : _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
+                    [_vm._v("暂无")]
+                  )
+            ],
             1
           )
         ],
@@ -1227,27 +1259,46 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
+        { staticClass: _vm._$g(28, "sc"), attrs: { _i: 28 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(25, "sc"), attrs: { _i: 25 } },
+            { staticClass: _vm._$g(29, "sc"), attrs: { _i: 29 } },
             [_vm._v("目前收入总情况：")]
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(26, "sc"), attrs: { _i: 26 } },
-            [_vm._v(_vm._$g(26, "t0-0") + "元")]
+            { staticClass: _vm._$g(30, "sc"), attrs: { _i: 30 } },
+            [_vm._v(_vm._$g(30, "t0-0") + "元")]
+          )
+        ],
+        1
+      ),
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(31, "sc"), attrs: { _i: 31 } },
+        [
+          _c(
+            "v-uni-button",
+            {
+              attrs: { type: "default", _i: 32 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [_vm._v("退出登录")]
           )
         ],
         1
       ),
       _c(
         "uni-popup",
-        { ref: "addTagPopup", attrs: { _i: 27 } },
+        { ref: "addTagPopup", attrs: { _i: 33 } },
         [
           _c("uni-popup-dialog", {
-            attrs: { _i: 28 },
+            attrs: { _i: 34 },
             on: {
               close: function($event) {
                 return _vm.$handleViewEvent($event)
@@ -2705,7 +2756,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../辅助软件/HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.content[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  min-height: calc(100vh - 44px);\r\n  padding: 30rpx 0;\n}\n.content .card-book-keeping-content[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding: 10rpx;\n}\n.content .card-book-keeping-content .input-number[data-v-2be84a3c] {\r\n  width: 80%;\r\n  color: #666;\r\n  height: 90rpx;\r\n  text-align: center;\n}\n.content .card-book-keeping-content .record[data-v-2be84a3c] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  background-color: #fcd217;\r\n  border: 0;\n}\n.content .cardSubtitleButton[data-v-2be84a3c] {\r\n  width: 100rpx;\r\n  float: right;\r\n  height: 40rpx;\r\n  line-height: 40rpx;\r\n  font-size: 20rpx;\r\n  background-color: #fcd217;\r\n  color: #000;\r\n  margin-bottom: 10rpx;\n}\n.content .tagBox[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\n}\n.content .total[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.content .total .totalWord[data-v-2be84a3c] {\r\n  text-align: left;\n}\n.content .total .totalNumber[data-v-2be84a3c] {\r\n  text-align: right;\n}\n.content .form[data-v-2be84a3c] {\r\n  width: 100%;\n}\n.content .form .recordInfo[data-v-2be84a3c] {\r\n  padding: 20rpx;\r\n  border-top: 5rpx solid #333;\r\n  border-bottom: 5rpx solid #333;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.content[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  min-height: calc(100vh - 44px);\r\n  padding: 30rpx 0;\n}\n.content .card-book-keeping-content[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding: 10rpx;\n}\n.content .card-book-keeping-content .input-number[data-v-2be84a3c] {\r\n  width: 80%;\r\n  color: #666;\r\n  height: 90rpx;\r\n  text-align: center;\n}\n.content .card-book-keeping-content .record[data-v-2be84a3c] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  background-color: #fcd217;\r\n  border: 0;\n}\n.content .cardSubtitleButton[data-v-2be84a3c] {\r\n  width: 100rpx;\r\n  float: right;\r\n  height: 40rpx;\r\n  line-height: 40rpx;\r\n  font-size: 20rpx;\r\n  background-color: #fcd217;\r\n  color: #000;\r\n  margin-bottom: 10rpx;\n}\n.content .tagBox[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\n}\n.content .total[data-v-2be84a3c] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.content .total .totalWord[data-v-2be84a3c] {\r\n  text-align: left;\n}\n.content .total .totalNumber[data-v-2be84a3c] {\r\n  text-align: right;\n}\n.content .form[data-v-2be84a3c] {\r\n  width: 100%;\n}\n.content .form .recordInfo[data-v-2be84a3c] {\r\n  padding: 20rpx;\r\n  border-top: 5rpx solid #333;\r\n  border-bottom: 5rpx solid #333;\n}\n.content .textNone[data-v-2be84a3c] {\r\n  font-size: 30rpx;\r\n  font-weight: 700;\r\n  color: rgba(51, 51, 51, 0.4);\n}\n.content .logoutBox uni-button[data-v-2be84a3c] {\r\n  background-color: #f0ad4e;\r\n  color: #EEE;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

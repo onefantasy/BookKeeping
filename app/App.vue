@@ -12,7 +12,14 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	/* 引入icon */
+	@import './static/css/icon.css';
+	
+	.iconfont {
+		font-family: "iconfont" !important;
+	}
+	
 	/*每个页面公共css */
 	.bc {
 		background-color: #f7e8aa;

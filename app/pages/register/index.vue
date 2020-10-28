@@ -15,7 +15,7 @@
 		
 		<!-- 按钮 开始 -->
 		<view class="buttons">
-			<button class="login bc" @click="register">注册</button>
+			<button class="login bc iconfont" @click="register">&#xe62d; 注册</button>
 		</view>
 		<!-- 按钮 结束 -->
 	</view>

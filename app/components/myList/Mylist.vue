@@ -1,9 +1,14 @@
 <template>
 	<view>
-		<view v-for="(item, index) in list" :key="index"  class="listItem">
-			<view class="listTags">{{ item.tags.join('、') }}</view>
-			<view class="listTime">{{ item.time }}</view>
-			<view class="listNumber">{{ formatMoney(item.number) }}元</view>
+		<view v-if="list[0]">
+			<view v-for="(item, index) in list" :key="index"  class="listItem">
+				<view class="listTags">{{ item.tags.join('、') }}</view>
+				<view class="listTime">{{ item.time }}</view>
+				<view class="listNumber">{{ formatMoney(item.number) }}元</view>
+			</view>
+		</view>
+		<view v-else class="textNone">
+			暂无记录
 		</view>
 	</view>
 </template>
@@ -18,11 +23,7 @@
 			list: {
 				type: Array,
 				default: function() {
-					const list = [
-						{ tags: ['信息项1', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 300 },
-						{ tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: -200 },
-						{ tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 400 }
-					]
+					const list = []
 					return list
 				}
 			}
@@ -57,5 +58,13 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
+	}
+	
+	// 暂无内容 样式
+	.textNone {
+		text-align: center;
+		font-size: 30rpx;
+		font-weight: 700;
+		color: rgba(51, 51, 51, .3);
 	}
 </style>

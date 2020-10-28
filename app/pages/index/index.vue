@@ -5,7 +5,7 @@
 			<text slot="cardName" class="card-book-keeping-name">记账</text>
 			<view slot="cardContent" class="card-book-keeping-content">
 				<input type="text" class="input-number" placeholder="输入金额(正负表示收入支出)" v-model="money">
-				<button class="record" @click="record">记录</button>
+				<button class="record iconfont" @click="record">&#xe604; 记录</button>
 			</view>
 		</my-card>
 		<!-- 记账 结束 -->
@@ -13,26 +13,26 @@
 		<my-card>
 			<text slot="cardName" @click="goDetail('支出')">支出统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(payAll) }}元</text>
-			<my-list slot="cardContent"></my-list>
+			<my-list slot="cardContent" :list="payList"></my-list>
 		</my-card>
 		<!-- 支出统计 结束 -->
 		<!-- 收入统计 开始 -->
 		<my-card>
 			<text slot="cardName" @click="goDetail('收入')">收入统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(income) }}元</text>
-			<my-list slot="cardContent"></my-list>
+			<my-list slot="cardContent" :list="incomeList"></my-list>
 		</my-card>
 		<!-- 收入统计 结束 -->
 		<!-- 支出标签 开始 -->
 		<my-card>
 			<text slot="cardName">支出标签</text>
-			<button slot="cardSubtitle" class="cardSubtitleButton" @click="addTag('支出')">添加</button>
+			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(0)">&#xe68a; 添加</button>
 			<view slot="cardContent" class="tagBox">
 				<view v-if="tags[0]">
 					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
-					暂无
+					暂无标签
 				</view>
 			</view>
 		</my-card>
@@ -40,13 +40,13 @@
 		<!-- 收入标签 开始 -->
 		<my-card>
 			<text slot="cardName">收入标签</text>
-			<button slot="cardSubtitle" class="cardSubtitleButton" @click="addTag('收入')">添加</button>
+			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(1)">&#xe68a; 添加</button>
 			<view slot="cardContent" class="tagBox">
 				<view v-if="tags[0]">
 					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
-					暂无
+					暂无标签
 				</view>
 			</view>
 		</my-card>
@@ -59,7 +59,7 @@
 		<!-- 账本总情况 结束 -->
 		<!-- 退出 开始 -->
 		<view class="logoutBox">
-			<button type="default" @click="logout">退出登录</button>
+			<button type="default" class="iconfont" @click="logout">&#xe62e; 退出登录</button>
 		</view>
 		<!-- 退出 结束 -->
 		<!-- 添加标签弹窗 开始 -->
@@ -91,7 +91,14 @@
 				money: '', // 记账金额
 				payAll: 200, // 支出统计总金额
 				income: 200000000, // 收入统计金额
-				tags: []
+				tags: [],
+				payList: [
+					{ tags: ['信息项1', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 300 },
+					{ tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: -200 },
+					{ tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 400 }
+				], // 支出内容
+				incomeList: [], // 收入内容
+				tagTypeIndex: -1 // 标签类型索引
 			}
 		},
 		onShow() {
@@ -120,15 +127,31 @@
 				})
 			},
 			// 添加标签弹窗
-			addTag(type) {
+			addTag(index) {
 				this.$refs.addTagPopup.open()
+				this.tagTypeIndex = index
 			},
 			close(done) {
 				done()
+				this.tagTypeIndex = -1
 			},
 			confirm(done, val) {
 				done()
-				this.tags.push(val)
+				if (this.tagTypeIndex === -1 || !val) return false
+				// this.tags.push(val)
+				const apiArr = ['payTags/addTag', 'incomeTags/addTag']
+				const account = this.$store.getters['user/account']
+				const data = {
+					tid: account + Date.now(),
+					owner: account,
+					content: val
+				}
+				this.$store.dispatch(apiArr[this.tagTypeIndex], data).then(res => {
+					uni.showToast({
+						title: '添加成功！',
+						icon: 'none'
+					})
+				})
 			},
 			// 退出登录
 			logout() {
@@ -153,7 +176,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		min-height: calc(100vh - 44px);
+		min-height: 100vh;
 		padding: 30rpx 0;
 
 		// 记账 开始
@@ -163,7 +186,7 @@
 			padding: 10rpx;
 			
 			.input-number {
-				width: 80%;
+				width: 70%;
 				color: #666;
 				height: 90rpx;
 				text-align: center;
@@ -224,11 +247,16 @@
 		.textNone {
 			font-size: 30rpx;
 			font-weight: 700;
-			color: rgba(51, 51, 51, .4);
+			color: rgba(51, 51, 51, .3);
+			flex: 1;
+			text-align: center;
 		}
 		
 		// 退出登录 开始
 		.logoutBox {
+			margin-top: 30rpx;
+			width: 80%;
+			
 			button {
 				background-color: #f0ad4e;
 				color: #EEE;

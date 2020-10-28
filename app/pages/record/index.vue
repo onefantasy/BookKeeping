@@ -50,7 +50,7 @@
 		</view>
 		<!-- 备注 结束 -->
 		<!-- 保存按钮 开始 -->
-		<button type="default" class="save" @click="save">保存</button>
+		<button type="default" class="save iconfont" @click="save">&#xe865; 保存</button>
 		<!-- 保存按钮 结束 -->
 	</view>
 </template>
@@ -171,7 +171,7 @@
 
 <style lang="scss" scoped>
 	.record {
-		min-height: calc(100vh - 44px);
+		min-height: 100vh;
 		padding: 20rpx;
 		font-size: 36rpx;
 		color: #666;

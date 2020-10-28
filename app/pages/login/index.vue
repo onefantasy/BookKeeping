@@ -14,7 +14,7 @@
 		
 		<!-- 按钮 开始 -->
 		<view class="buttons">
-			<button class="login bc" @click="login(account, password)">登录</button>
+			<button class="login bc iconfont" @click="login(account, password)">登录 &#xe6bd;</button>
 			<view class="line">
 				<a @click="goPage('/pages/password/index')">忘记密码</a>
 				<text>|</text>

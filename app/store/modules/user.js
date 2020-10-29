@@ -16,7 +16,7 @@ const getters = {
 const actions = {
 	// 登录
 	async login(ctx, data) {
-		login(data).then(res => {
+		await login(data).then(res => {
 			ctx.commit('SAVE_ACCOUNT', data.account)
 			return res
 		}).catch(e => Promise.reject(e))

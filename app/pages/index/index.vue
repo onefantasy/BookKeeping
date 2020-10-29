@@ -27,9 +27,9 @@
 		<my-card>
 			<text slot="cardName">支出标签</text>
 			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(0)">&#xe68a; 添加</button>
-			<view slot="cardContent" class="tagBox">
-				<view v-if="tags[0]">
-					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+			<view slot="cardContent">
+				<view v-if="payTags[0]" class="tagBox">
+					<my-tag v-for="(item, index) in payTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
 					暂无标签
@@ -41,9 +41,9 @@
 		<my-card>
 			<text slot="cardName">收入标签</text>
 			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(1)">&#xe68a; 添加</button>
-			<view slot="cardContent" class="tagBox">
-				<view v-if="tags[0]">
-					<my-tag v-for="(item, index) in tags" :key="index + item" :colorIndex="index" :tagContent="item" :isOpen="true"></my-tag>
+			<view slot="cardContent">
+				<view v-if="incomeTags[0]"  class="tagBox">
+					<my-tag v-for="(item, index) in incomeTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
 					暂无标签
@@ -91,21 +91,33 @@
 				money: '', // 记账金额
 				payAll: 200, // 支出统计总金额
 				income: 200000000, // 收入统计金额
-				tags: [],
-				payList: [
-					{ tags: ['信息项1', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 300 },
-					{ tags: ['信息项2', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: -200 },
-					{ tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], time: '2020.10.10 13:13:13', number: 400 }
-				], // 支出内容
+				payTags: [], // 支出标签
+				incomeTags: [], // 收入标签
+				payList: [], // 支出内容
 				incomeList: [], // 收入内容
 				tagTypeIndex: -1 // 标签类型索引
 			}
+		},
+		mounted() {
+			// 获取标签
+			this.getTags(3)
 		},
 		onShow() {
 			// 重置金额
 			this.money = ''
 		},
 		methods: {
+			// 获取标签(type为0，获取支出标签；为1获取收入标签；为3获取两种标签)
+			getTags(type) {
+				const data = {
+					type,
+					owner: this.$store.getters['user/account']
+				}
+				this.$store.dispatch('tags/getTags', data).then(res => {
+					this.payTags = this.$store.getters['tags/payTags']
+					this.incomeTags = this.$store.getters['tags/incomeTags']
+				})
+			},
 			// 记账功能
 			record() {
 				if (this.money === '' || isNaN(+this.money)) {
@@ -138,19 +150,22 @@
 			confirm(done, val) {
 				done()
 				if (this.tagTypeIndex === -1 || !val) return false
+				const index = this.tagTypeIndex
 				// this.tags.push(val)
-				const apiArr = ['payTags/addTag', 'incomeTags/addTag']
 				const account = this.$store.getters['user/account']
 				const data = {
 					tid: account + Date.now(),
 					owner: account,
-					content: val
+					content: val,
+					type: index
 				}
-				this.$store.dispatch(apiArr[this.tagTypeIndex], data).then(res => {
+				this.$store.dispatch('tags/addTag', data).then(res => {
 					uni.showToast({
 						title: '添加成功！',
 						icon: 'none'
 					})
+					// 刷新标签
+					this.getTags(index)
 				})
 			},
 			// 退出登录
@@ -248,7 +263,7 @@
 			font-size: 30rpx;
 			font-weight: 700;
 			color: rgba(51, 51, 51, .3);
-			flex: 1;
+			width: 100%;
 			text-align: center;
 		}
 		

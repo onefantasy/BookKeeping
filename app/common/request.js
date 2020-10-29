@@ -16,7 +16,7 @@ async function request({ method, data, url } = {}) {
 	// 请求失败
 	if (resData.code !== 200) {
 		uni.showToast({
-			title: resData.message,
+			title: resData.message || '请求失败！',
 			icon: 'none'
 		})
 		return Promise.reject(resDate)

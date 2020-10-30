@@ -73,4 +73,19 @@ router.get('/getTags', async (ctx, next) => {
 	}
 })
 
+// 删除标签
+router.get('/delTag', async (ctx, next) => {
+	const params = ctx.query
+	// 为0是支出，为1是收入
+	const tags = +params.type ? incomeTags : payTags
+	const res = await tags.destroy({
+		where: { tid: params.tid }
+	})
+	// 返回体
+	ctx.body = {
+		code: res ? 200 : 500,
+		message: `删除${ res ? '成功' : '失败' }！`
+	}
+})
+
 module.exports = router

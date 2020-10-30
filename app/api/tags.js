@@ -15,3 +15,11 @@ export function getTags(data) {
 		data
 	})
 }
+
+export function delTag(data) {
+	return request({
+		url: '/tags/delTag',
+		method: 'GET',
+		data
+	})
+}

@@ -2,6 +2,14 @@
 	export default {
 		onLaunch: function() {
 			// console.log('App Launch')
+			// #ifdef H5
+			// 仓库中不存在账号，直接返回登录页面
+			if (!this.$store.getters['user/account']) {
+				uni.reLaunch({
+					url: 'pages/login/index'
+				})
+			}
+			// #endif
 		},
 		onShow: function() {
 			// console.log('App Show')

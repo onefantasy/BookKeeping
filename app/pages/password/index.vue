@@ -1,6 +1,8 @@
 <template>
 	<view>
-		忘记密码
+		忘记密码！<br />
+		开发中。。。<br />
+		请绕道。。。<br />
 	</view>
 </template>
 

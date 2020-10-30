@@ -15,15 +15,18 @@
 		<!-- 流动 结束 -->
 		<!-- 标签选择 开始 -->
 		<view class="recordItem">
-			<text>标签</text>
-			<view class="tags">
+			<text>标签:</text>
+			<view v-if="selectTags[0]" class="tags">
 				<my-tag 
 					v-for="(item, index) in selectTags" 
 					:key="index + item" 
-					:tagContent="item" 
+					:tagContent="item.content" 
 					:isWhite="tags.indexOf(item) < 0 ? true : false"
 					@click.native="selectTag(item)"
 				></my-tag>
+			</view>
+			<view v-else class="tags textNone">
+				暂无标签
 			</view>
 		</view>
 		<!-- 标签选择 结束 -->
@@ -92,17 +95,8 @@
 				money: 0,
 				// 标签列表
 				tags: [],
-				// 选中的标签
-				selectTags: [
-					'饮料',
-					'共享电单车',
-					'滴滴出行',
-					'工资',
-					'炒股利息',
-					'全款购房',
-					'中彩票',
-					'小说收益'
-				],
+				// 可选的标签
+				selectTags: [],
 				// 日期
 				date: getDate(),
 				// 时间
@@ -115,7 +109,9 @@
 		},
 		watch: {
 			'money'() {
-				this.flow = this.money < 0 ? '支出' : '收入'
+				const flag = this.money < 0
+				this.flow = flag ? '支出' : '收入'
+				this.selectTags = flag ? this.$store.getters['tags/payTags'] : this.$store.getters['tags/incomeTags']
 			}
 		},
 		onLoad(e) {
@@ -161,7 +157,7 @@
 					flow: this.flow,
 					date: this.date,
 					time: this.time,
-					tags: this.tags,
+					tags: this.tags.map(item => item.content).join(','),
 					info: this.info
 				}
 			}
@@ -221,6 +217,16 @@
 		.save {
 			background-color: #fcd217;
 			color: #fff;
+		}
+		
+		// 暂无问本样式
+		.textNone {
+			display: block;
+			font-size: 30rpx;
+			font-weight: 700;
+			color: rgba(51, 51, 51, .3);
+			text-align: center;
+			width: 100%;
 		}
 	}
 </style>

@@ -1,6 +1,7 @@
 import { 
 	addTag,
-	getTags
+	getTags,
+	delTag
 } from '@/api/tags.js'
 
 const state = () => ({
@@ -31,6 +32,11 @@ const actions = {
 		}).catch(e => {
 			return Promise.reject(e)
 		})
+	},
+	// 删除标签
+	async delTag({ commit }, data) {
+		const res = await delTag(data)
+		return res
 	}
 }
 

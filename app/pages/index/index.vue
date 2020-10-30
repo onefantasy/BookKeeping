@@ -29,7 +29,7 @@
 			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(0)">&#xe68a; 添加</button>
 			<view slot="cardContent">
 				<view v-if="payTags[0]" class="tagBox">
-					<my-tag v-for="(item, index) in payTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :isOpen="true"></my-tag>
+					<my-tag v-for="(item, index) in payTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :tid="item.tid" :type="0" @delSuccess='getTags(0)' :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
 					暂无标签
@@ -43,7 +43,7 @@
 			<button slot="cardSubtitle" class="cardSubtitleButton iconfont" @click="addTag(1)">&#xe68a; 添加</button>
 			<view slot="cardContent">
 				<view v-if="incomeTags[0]"  class="tagBox">
-					<my-tag v-for="(item, index) in incomeTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :isOpen="true"></my-tag>
+					<my-tag v-for="(item, index) in incomeTags" :key="index + item" :colorIndex="index" :tagContent="item.content" :tid="item.tid" :type="1" @delSuccess='getTags(1)' :isOpen="true"></my-tag>
 				</view>
 				<view v-else class="textNone">
 					暂无标签
@@ -192,6 +192,9 @@
 		align-items: center;
 		justify-content: center;
 		min-height: 100vh;
+		// #ifdef H5
+		min-height: calc(100vh - 44px);
+		// #endif
 		padding: 30rpx 0;
 
 		// 记账 开始
@@ -217,7 +220,7 @@
 		
 		// 副标题按钮
 		.cardSubtitleButton {
-			width: 100rpx;
+			width: 150rpx;
 			float: right;
 			height: 40rpx;
 			line-height: 40rpx;

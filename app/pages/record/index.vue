@@ -111,6 +111,7 @@
 			'money'() {
 				const flag = this.money < 0
 				this.flow = flag ? '支出' : '收入'
+				this.tags = []
 				this.selectTags = flag ? this.$store.getters['tags/payTags'] : this.$store.getters['tags/incomeTags']
 			}
 		},
@@ -153,13 +154,22 @@
 					return false
 				}
 				const data = {
+					rid: this.$store.getters['user/account'] + Date.now(),
 					money: this.money,
 					flow: this.flow,
 					date: this.date,
 					time: this.time,
 					tags: this.tags.map(item => item.content).join(','),
-					info: this.info
+					info: this.info,
+					account: this.$store.getters['user/account']
 				}
+				this.$store.dispatch('records/save', data).then(res => {
+					uni.navigateBack()
+					uni.showToast({
+						title: res.message,
+						icon: 'none'
+					})
+				})
 			}
 		}
 	}

@@ -11,6 +11,7 @@ const path = require('path')
 const index = require('./routes/index')
 const users = require('./routes/users')
 const tags = require('./routes/tags')
+const records = require('./routes/records')
 
 // 跨域
 const cors = require('koa2-cors')
@@ -67,6 +68,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(tags.routes(), tags.allowedMethods())
+app.use(records.routes(), records.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

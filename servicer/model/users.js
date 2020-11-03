@@ -16,8 +16,18 @@ const users = sequelize.define('users', {
   },
   // 最近登陆时间
   latestTime: Sequelize.DATE,
-  // 上次登陆客户端的地址
-  origin: Sequelize.STRING
+  // 最近登录地址
+  origin: Sequelize.STRING,
+  // 支出总数
+  payCount: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  // 收入总数
+  incomeCount: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  }
 }, {freezeTableName: true})
 
 // 创建管理员账号 开始

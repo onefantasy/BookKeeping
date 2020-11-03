@@ -7,3 +7,11 @@ export function save(data) {
 		data
 	})
 }
+
+export function getRecords(data) {
+	return request({
+		url: '/records/getRecords',
+		method: 'GET',
+		data
+	})
+}

@@ -163,7 +163,7 @@
 					info: this.info,
 					account: this.$store.getters['user/account']
 				}
-				this.$store.dispatch('records/save', data).then(res => {
+				this.$store.dispatch('record/save', data).then(res => {
 					uni.navigateBack()
 					uni.showToast({
 						title: res.message,

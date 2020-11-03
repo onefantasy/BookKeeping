@@ -1,5 +1,6 @@
 import {
-	save
+	save,
+	getRecords
 } from '@/api/record.js'
 
 const state = () => ({})
@@ -10,6 +11,11 @@ const actions = {
 	// 保存记录
 	async save({ commit }, data) {
 		const res = await save(data)
+		return res
+	},
+	// 获取记录
+	async getRecords({ commit }, data) {
+		const res = await getRecords(data)
 		return res
 	}
 }

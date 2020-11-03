@@ -19,7 +19,7 @@
 		<!-- 收入统计 开始 -->
 		<my-card>
 			<text slot="cardName" @click="goDetail('收入')">收入统计</text>
-			<text slot="cardSubtitle">共{{ formatMoney(income) }}元</text>
+			<text slot="cardSubtitle">共{{ formatMoney(incomeAll) }}元</text>
 			<my-list slot="cardContent" :list="incomeList"></my-list>
 		</my-card>
 		<!-- 收入统计 结束 -->
@@ -54,7 +54,7 @@
 		<!-- 账本总情况 开始 -->
 		<view class="total">
 			<view class="totalWord">目前收入总情况：</view>
-			<view class="totalNumber">{{ formatMoney(income - payAll) }}元</view>
+			<view class="totalNumber">{{ formatMoney(incomeAll - payAll) }}元</view>
 		</view>
 		<!-- 账本总情况 结束 -->
 		<!-- 退出 开始 -->
@@ -90,7 +90,7 @@
 			return {
 				money: '', // 记账金额
 				payAll: 200, // 支出统计总金额
-				income: 200000000, // 收入统计金额
+				incomeAll: 200000000, // 收入统计金额
 				payTags: [], // 支出标签
 				incomeTags: [], // 收入标签
 				payList: [], // 支出内容
@@ -105,6 +105,8 @@
 		onShow() {
 			// 重置金额
 			this.money = ''
+			// 获取记录
+			this.getRecords()
 		},
 		methods: {
 			// 获取标签(type为0，获取支出标签；为1获取收入标签；为3获取两种标签)
@@ -116,6 +118,20 @@
 				this.$store.dispatch('tags/getTags', data).then(res => {
 					this.payTags = this.$store.getters['tags/payTags']
 					this.incomeTags = this.$store.getters['tags/incomeTags']
+				})
+			},
+			// 获取最新的记录
+			getRecords() {
+				const data = {
+					type: 3,
+					account: this.$store.getters['user/account'],
+					limit: 5
+				}
+				this.$store.dispatch('record/getRecords', data).then(res => {
+					this.payList = res.payRecords
+					this.incomeList = res.incomeRecords
+					this.payAll = -res.payCount
+					this.incomeAll = res.incomeCount
 				})
 			},
 			// 记账功能

@@ -88,4 +88,43 @@ router.get('/getRecords', async (ctx, next) => {
 	}
 })
 
+// 获取明细的记录
+router.get('/getDetail', async (ctx, next) => {
+	const params = ctx.query
+	if (!params.account) {
+		ctx.body = {
+			code: 103,
+			message: '参数出错！'
+		}
+		return false
+	}
+	// 拼凑参数
+	const where = {}
+	where.date = { [Op.gte]: params.startDate, [Op.lte]: params.endDate }
+	delete params.startDate
+	delete params.endDate
+	if (params.tags) {
+		where.tags = { [Op.substring]: params.tags }
+		delete params.tags
+	}
+	console.log('params:', params)
+	const keys = Object.keys(params)
+	for (let item of keys) {
+		where[item] = params[item]
+	}
+	console.log('where:', where)
+	// 查询
+	const list = await records.findAll({
+		where,
+		order: [
+    	  ['createdAt', 'DESC']
+    	]
+	})
+	ctx.body = {
+		code: list ? 200 : 500,
+		message: `记录查询${ list ? '成功' : '失败' }！`,
+		list
+	}
+})
+
 module.exports = router

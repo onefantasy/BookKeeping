@@ -130,7 +130,7 @@
 				this.$store.dispatch('record/getRecords', data).then(res => {
 					this.payList = res.payRecords
 					this.incomeList = res.incomeRecords
-					this.payAll = -res.payCount
+					this.payAll = +res.payCount < 0 ? -res.payCount : res.payCount
 					this.incomeAll = res.incomeCount
 				})
 			},

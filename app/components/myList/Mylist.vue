@@ -2,7 +2,7 @@
 	<view>
 		<view v-if="list[0]">
 			<view v-for="(item, index) in list" :key="index"  class="listItem">
-				<view class="listTags">{{ item.tags }}</view>
+				<view class="listTags">{{ item.tags || item.info }}</view>
 				<view class="listTime">{{ item.date + ' ' + item.time }}</view>
 				<view class="listNumber">{{ formatMoney(item.money) }}元</view>
 			</view>

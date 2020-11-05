@@ -2,13 +2,6 @@
 	<view class="box bc">
 		<!-- 导航栏 开始 -->
 		<view class="nav">
-			<!-- 标签 开始 -->
-			<view>
-				<picker @change="tagsChange" :value="tagsIndex" :range="tags">
-					<view>{{tags[tagsIndex]}}</view>
-				</picker>
-			</view>
-			<!-- 标签 结束 -->
 			<!-- 收入支出 开始 -->
 			<view>
 				<picker @change="situationChange" :value="situationIndex" :range="situation">
@@ -16,6 +9,13 @@
 				</picker>
 			</view>
 			<!-- 收入支出 结束 -->
+			<!-- 标签 开始 -->
+			<view>
+				<picker @change="tagsChange" :value="tagsIndex" :range="tags">
+					<view>{{tags[tagsIndex]}}</view>
+				</picker>
+			</view>
+			<!-- 标签 结束 -->
 			<!-- 起始时间 开始 -->
 			<view>
 				<picker mode="date" :value="startDate" @change="startDateChange">
@@ -74,21 +74,18 @@
 		},
 		data() {
 			return {
+				// 全部的标签
+				all: '全部',
 				// 标签
-				tags: [
-					'不限',
-					'出行',
-					'饮料',
-					'游戏',
-					'工资',
-					'买彩票',
-					'搭公交',
-					'一日三餐'
-				],
+				tags: [],
 				// 标签索引
 				tagsIndex: 0,
+				// 支出标签
+				payTags: [],
+				// 收入标签
+				incomeTags: [],
 				// 收入支出标志
-				situation: ['不限', '收入', '支出'],
+				situation: ['不限', '支出', '收入'],
 				// 收入支出索引
 				situationIndex: 0,
 				// 开始时间
@@ -104,24 +101,70 @@
 					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项1', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项'], date: '2020-10-10', time: '13:13', flow: '收入', money: 300 },
 					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['全款购房'], date: '2020-10-10', time: '13:13', flow: '支出', money: -200 },
 					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], date: '2020-10-10', time: '13:13', flow: '收入', money: 400 }
-				 ]
+				]
+			}
+		},
+		mounted() {
+			// 获取支出和收入标签
+			this.payTags = this.$store.getters['tags/payTags'].map(item => item.content)
+			this.incomeTags = this.$store.getters['tags/incomeTags'].map(item => item.content)
+			// 设置标签
+			this.setTags(this.situationIndex)
+			// 获取明细数据
+			this.getRecords()
+		},
+		watch: {
+			'situationIndex'() {
+				this.setTags(this.situationIndex)
 			}
 		},
 		methods: {
+			// 获取列表信息
+			getRecords() {
+				const data = {
+					account: this.$store.getters['user/account'],
+					startDate: this.startDate,
+					endDate: this.endDate,
+				}
+				this.tagsIndex !== 0 && (data.tags = this.tags[this.tagsIndex])
+				this.situationIndex !== 0 && (data.flow = this.situation[this.situationIndex])
+				this.$store.dispatch('record/getDetail', data).then(res => {
+					this.list = res.list.map(item => {
+						item.tags = !!item.tags ? item.tags.split(',') : []
+						return item
+					})
+				})
+			},
 			tagsChange(e) {
 				this.tagsIndex = e.target.value
+				this.getRecords()
 			},
 			situationChange(e) {
 				this.situationIndex = e.target.value
 			},
 			startDateChange(e) {
 				this.startDate = e.detail.value
+				this.getRecords()
 			},
 			endDateChange(e) {
 				this.endDate = e.detail.value
+				this.getRecords()
 			},
 			showTypeChange(e) {
 				this.showTypeIndex = e.detail.value
+			},
+			// 重置标签选项
+			setTags(index) {
+				const tags = [this.all]
+				if ([0, 1].indexOf(index) !== -1) {
+					tags.push(...this.payTags)
+				}
+				if ([0, 2].indexOf(index) !== -1) {
+					tags.push(...this.incomeTags)
+				}
+				this.tags = tags
+				this.tagsIndex = 0
+				this.getRecords()
 			}
 		}
 	}

@@ -4,7 +4,7 @@
 		<uni-collapse>
 		    <uni-collapse-item v-for="(item, index) in list" :key="index">
 		        <view slot="title" class="listItem">
-					<view class="listTags">{{ index + 1 + '、' + item.tags.join('、') }}</view>
+					<view class="listTags">{{ index + 1 + '、' + (item.tags[0] ? item.tags.join('、') : item.info) }}</view>
 					<view class="listTime">{{ item.date + ' ' + item.time }}</view>
 					<view class="listmoney">{{ formatMoney(item.money) }}元</view>
 				</view>

@@ -15,7 +15,7 @@
 		{
 			"path": "pages/detail/index",
 			"style": {
-				"navigationBarTitleText": "统计"
+				"navigationBarTitleText": "明细"
 			}
 		},
 		{

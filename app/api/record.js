@@ -15,3 +15,11 @@ export function getRecords(data) {
 		data
 	})
 }
+
+export function getDetail(data) {
+	return request({
+		url: '/records/getDetail',
+		method: 'GET',
+		data
+	})
+}

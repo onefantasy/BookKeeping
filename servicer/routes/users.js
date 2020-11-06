@@ -49,7 +49,7 @@ router.post('/login', async (ctx, next) => {
   const data = await users.findOne({
     where: {
       account: {
-        [Op.eq]: `${params.account}`
+        [Op.like]: `${params.account}`
       }
     }
   })

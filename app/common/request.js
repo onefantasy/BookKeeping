@@ -14,7 +14,7 @@ async function request({ method, data, url } = {}) {
 	uni.hideLoading()
 	const resData = res[1].data
 	// 请求失败
-	if (resData.code !== 200) {
+	if (res[1].statusCode !== 200 || resData.code !== 200) {
 		uni.showToast({
 			title: resData.message || '请求失败！',
 			icon: 'none'

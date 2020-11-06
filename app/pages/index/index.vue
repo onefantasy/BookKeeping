@@ -11,14 +11,14 @@
 		<!-- 记账 结束 -->
 		<!-- 支出统计 开始 -->
 		<my-card>
-			<text slot="cardName" @click="goDetail('支出')">支出统计</text>
+			<text slot="cardName" @click="goDetail(1)">支出统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(payAll) }}元</text>
 			<my-list slot="cardContent" :list="payList"></my-list>
 		</my-card>
 		<!-- 支出统计 结束 -->
 		<!-- 收入统计 开始 -->
 		<my-card>
-			<text slot="cardName" @click="goDetail('收入')">收入统计</text>
+			<text slot="cardName" @click="goDetail(2)">收入统计</text>
 			<text slot="cardSubtitle">共{{ formatMoney(incomeAll) }}元</text>
 			<my-list slot="cardContent" :list="incomeList"></my-list>
 		</my-card>
@@ -149,9 +149,9 @@
 				})
 			},
 			// 跳转到详情页面
-			goDetail(type) {
+			goDetail(index) {
 				uni.navigateTo({
-					url: '/pages/detail/index'
+					url: '/pages/detail/index?index=' + index 
 				})
 			},
 			// 添加标签弹窗

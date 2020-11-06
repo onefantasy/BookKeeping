@@ -51,21 +51,21 @@
 	import myCollapseList from '@/components/myCollapseList/MyCollapseList.vue'
 	
 	function getDate(type) {
-		const date = new Date();
+		const date = new Date()
 	
-		let year = date.getFullYear();
-		let month = date.getMonth() + 1;
-		let day = date.getDate();
+		let year = date.getFullYear()
+		let month = date.getMonth() + 1
+		let day = date.getDate()
 	
 		if (type === 'start') {
-			year = year - 100;
+			year = year - 5
 		} else if (type === 'end') {
-			year = year + 100;
+			year = year + 5
 		}
-		month = month > 9 ? month : '0' + month;;
-		day = day > 9 ? day : '0' + day;
+		month = month > 9 ? month : '0' + month
+		day = day > 9 ? day : '0' + day
 	
-		return `${year}-${month}-${day}`;
+		return `${year}-${month}-${day}`
 	}
 	
 	export default {
@@ -97,12 +97,13 @@
 				// 展示形式索引
 				showTypeIndex: 0,
 				// 信息列表
-				list: [
-					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项1', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项', '信息项'], date: '2020-10-10', time: '13:13', flow: '收入', money: 300 },
-					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['全款购房'], date: '2020-10-10', time: '13:13', flow: '支出', money: -200 },
-					{ info: '备注信息项，十分重要！能够从不同的数据区分，迅速找到自己想要的数据！哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', tags: ['信息项3', '信息项', '信息项', '信息项', '信息项'], date: '2020-10-10', time: '13:13', flow: '收入', money: 400 }
-				]
+				list: []
 			}
+		},
+		onLoad(query) {
+			!!query.index && (this.situationIndex = query.index)
+			// 获取明细数据
+			this.getRecords()
 		},
 		mounted() {
 			// 获取支出和收入标签
@@ -110,8 +111,6 @@
 			this.incomeTags = this.$store.getters['tags/incomeTags'].map(item => item.content)
 			// 设置标签
 			this.setTags(this.situationIndex)
-			// 获取明细数据
-			this.getRecords()
 		},
 		watch: {
 			'situationIndex'() {
@@ -152,6 +151,10 @@
 			},
 			showTypeChange(e) {
 				this.showTypeIndex = e.detail.value
+				uni.showToast({
+					title: '功能开发中......',
+					icon: 'none'
+				})
 			},
 			// 重置标签选项
 			setTags(index) {

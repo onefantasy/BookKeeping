@@ -164,7 +164,6 @@
 				this.tagTypeIndex = -1
 			},
 			confirm(done, val) {
-				done()
 				if (this.tagTypeIndex === -1 || !val) return false
 				const index = this.tagTypeIndex
 				// this.tags.push(val)
@@ -182,6 +181,7 @@
 					})
 					// 刷新标签
 					this.getTags(index)
+					done()
 				})
 			},
 			// 退出登录

@@ -9,6 +9,7 @@
 					<view class="listmoney">{{ formatMoney(item.money) }}元</view>
 				</view>
 				<view class="detail" @click="goPage(item)">
+					<view class="iconfont delRecord" @click.stop="delPupop(item)">&#xe695;</view>
 					<view>时间：{{ item.date + ' ' + item.time }}</view>
 					<view>流动：{{ item.flow }}</view>
 					<view>金额：{{ formatMoney(item.money) }}</view>
@@ -23,10 +24,19 @@
 		    </uni-collapse-item>
 		</uni-collapse>
 		<!-- 折叠项 结束 -->
+		
+		<!-- 删除弹窗 开始 -->
+		<uni-popup ref="delPopup" type="dialog">
+			<uni-popup-dialog type="warn" mode="base" content="确实删除该记录?" :before-close="true" @close="close"
+			 @confirm="confirm"></uni-popup-dialog>
+		</uni-popup>
+		<!-- 删除弹窗 结束 -->
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/popup.js'
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	import myTag from '@/components/myTag/MyTag.vue'
 	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
 	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
@@ -37,7 +47,8 @@
 		components: {
 			myTag,
 			uniCollapse,
-			uniCollapseItem
+			uniCollapseItem,
+			uniPopupDialog
 		},
 		props: {
 			list: {
@@ -63,6 +74,16 @@
 				uni.navigateTo({
 					url: '/pages/record/index?' + param
 				})
+			},
+			// 调用删除弹窗
+			delPupop(item) {
+				this.$refs.delPopup.open()
+			},
+			close(done) {
+				done()
+			},
+			confirm(done) {
+				done()
 			}
 		}
 	}
@@ -107,6 +128,13 @@
 			display: flex;
 			flex-wrap: wrap;
 			line-height: 70rpx;
+		}
+		
+		// 删除
+		.delRecord {
+			float: right;
+			padding-right: 20rpx;
+			font-size: 50rpx;
 		}
 	}
 </style>

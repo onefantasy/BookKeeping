@@ -3007,7 +3007,23 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
-        [_c("my-collapse-list", { attrs: { _i: 18 } })],
+        [
+          _vm._$g(18, "i")
+            ? _c("my-collapse-list", { attrs: { _i: 18 } })
+            : _c(
+                "v-uni-view",
+                { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+                [
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+                    [_vm._v("")]
+                  ),
+                  _c("v-uni-view", { attrs: { _i: 21 } }, [_vm._v("暂无记录")])
+                ],
+                1
+              )
+        ],
         1
       )
     ],
@@ -3134,7 +3150,8 @@ __webpack_require__.r(__webpack_exports__);
 var components = {
   uniCollapse: __webpack_require__(/*! @/components/uni-collapse/uni-collapse.vue */ 78).default,
   uniCollapseItem: __webpack_require__(/*! @/components/uni-collapse-item/uni-collapse-item.vue */ 86)
-    .default
+    .default,
+  uniPopup: __webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 17).default
 }
 var render = function() {
   var _vm = this
@@ -3199,26 +3216,39 @@ var render = function() {
                   }
                 },
                 [
-                  _c("v-uni-view", { attrs: { _i: "8-" + $30 } }, [
-                    _vm._v("时间：" + _vm._$g("8-" + $30, "t0-0"))
-                  ]),
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g("8-" + $30, "sc"),
+                      attrs: { _i: "8-" + $30 },
+                      on: {
+                        click: function($event) {
+                          return _vm.$handleViewEvent($event, { stop: true })
+                        }
+                      }
+                    },
+                    [_vm._v("")]
+                  ),
                   _c("v-uni-view", { attrs: { _i: "9-" + $30 } }, [
-                    _vm._v("流动：" + _vm._$g("9-" + $30, "t0-0"))
+                    _vm._v("时间：" + _vm._$g("9-" + $30, "t0-0"))
                   ]),
                   _c("v-uni-view", { attrs: { _i: "10-" + $30 } }, [
-                    _vm._v("金额：" + _vm._$g("10-" + $30, "t0-0"))
+                    _vm._v("流动：" + _vm._$g("10-" + $30, "t0-0"))
+                  ]),
+                  _c("v-uni-view", { attrs: { _i: "11-" + $30 } }, [
+                    _vm._v("金额：" + _vm._$g("11-" + $30, "t0-0"))
                   ]),
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g("11-" + $30, "sc"),
-                      attrs: { _i: "11-" + $30 }
+                      staticClass: _vm._$g("12-" + $30, "sc"),
+                      attrs: { _i: "12-" + $30 }
                     },
                     [
-                      _c("v-uni-text", { attrs: { _i: "12-" + $30 } }, [
+                      _c("v-uni-text", { attrs: { _i: "13-" + $30 } }, [
                         _vm._v("标签：")
                       ]),
-                      _vm._l(_vm._$g(13 + "-" + $30, "f"), function(
+                      _vm._l(_vm._$g(14 + "-" + $30, "f"), function(
                         unit,
                         i,
                         $21,
@@ -3226,14 +3256,14 @@ var render = function() {
                       ) {
                         return _c("my-tag", {
                           key: unit,
-                          attrs: { _i: "13-" + $30 + "-" + $31 }
+                          attrs: { _i: "14-" + $30 + "-" + $31 }
                         })
                       })
                     ],
                     2
                   ),
-                  _c("v-uni-view", { attrs: { _i: "14-" + $30 } }, [
-                    _vm._v("备注：" + _vm._$g("14-" + $30, "t0-0"))
+                  _c("v-uni-view", { attrs: { _i: "15-" + $30 } }, [
+                    _vm._v("备注：" + _vm._$g("15-" + $30, "t0-0"))
                   ])
                 ],
                 1
@@ -3242,6 +3272,24 @@ var render = function() {
             1
           )
         }),
+        1
+      ),
+      _c(
+        "uni-popup",
+        { ref: "delPopup", attrs: { _i: 16 } },
+        [
+          _c("uni-popup-dialog", {
+            attrs: { _i: 17 },
+            on: {
+              close: function($event) {
+                return _vm.$handleViewEvent($event)
+              },
+              confirm: function($event) {
+                return _vm.$handleViewEvent($event)
+              }
+            }
+          })
+        ],
         1
       )
     ],
@@ -3887,7 +3935,8 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 var _MyTag = _interopRequireDefault(__webpack_require__(/*! @/components/myTag/MyTag.vue */ 51));
 var _uniCollapse = _interopRequireDefault(__webpack_require__(/*! @/components/uni-collapse/uni-collapse.vue */ 78));
-var _uniCollapseItem = _interopRequireDefault(__webpack_require__(/*! @/components/uni-collapse-item/uni-collapse-item.vue */ 86));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+var _uniCollapseItem = _interopRequireDefault(__webpack_require__(/*! @/components/uni-collapse-item/uni-collapse-item.vue */ 86));
+var _uniPopupDialog = _interopRequireDefault(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 56));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   name: "my-collapse-list", props: ["list"],
   data: function data() {
@@ -3898,7 +3947,8 @@ var _uniCollapseItem = _interopRequireDefault(__webpack_require__(/*! @/componen
   components: {
     'myTag': _MyTag.default,
     'uniCollapse': _uniCollapse.default,
-    'uniCollapseItem': _uniCollapseItem.default } };exports.default = _default;
+    'uniCollapseItem': _uniCollapseItem.default,
+    'uniPopupDialog': _uniPopupDialog.default } };exports.default = _default;
 
 /***/ }),
 /* 104 */
@@ -3947,7 +3997,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../辅助软件/HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.listItem[data-v-31ac7e84] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  padding: 10rpx;\r\n  font-size: 25rpx;\n}\n.listItem .listTags[data-v-31ac7e84] {\r\n  width: 50%;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\n}\n.listItem .listTime[data-v-31ac7e84] {\r\n  text-align: center;\n}\n.listItem .listmoney[data-v-31ac7e84] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  text-align: right;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\n}\n.detail[data-v-31ac7e84] {\r\n  font-size: 25rpx;\r\n  padding: 12rpx;\r\n  color: #666;\n}\n.detail > uni-view[data-v-31ac7e84] {\r\n  margin: 10rpx 0;\n}\n.detail .tags[data-v-31ac7e84] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  line-height: 70rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.listItem[data-v-31ac7e84] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  padding: 10rpx;\r\n  font-size: 25rpx;\n}\n.listItem .listTags[data-v-31ac7e84] {\r\n  width: 50%;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\n}\n.listItem .listTime[data-v-31ac7e84] {\r\n  text-align: center;\n}\n.listItem .listmoney[data-v-31ac7e84] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  text-align: right;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\n}\n.detail[data-v-31ac7e84] {\r\n  font-size: 25rpx;\r\n  padding: 12rpx;\r\n  color: #666;\n}\n.detail > uni-view[data-v-31ac7e84] {\r\n  margin: 10rpx 0;\n}\n.detail .tags[data-v-31ac7e84] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  line-height: 70rpx;\n}\n.detail .delRecord[data-v-31ac7e84] {\r\n  float: right;\r\n  padding-right: 20rpx;\r\n  font-size: 50rpx;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -3999,7 +4049,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../辅助软件/HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.box[data-v-d5445b46] {\r\n  min-height: calc(100vh);\n}\n.box .nav[data-v-d5445b46] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  -webkit-box-shadow: 3rpx 3rpx 6rpx #aaa;\r\n          box-shadow: 3rpx 3rpx 6rpx #aaa;\r\n  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.8)), color-stop(rgba(68, 68, 68, 0.8)), to(rgba(0, 0, 0, 0.8)));\r\n  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8), rgba(68, 68, 68, 0.8), rgba(0, 0, 0, 0.8));\r\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(68, 68, 68, 0.8), rgba(0, 0, 0, 0.8));\r\n  position: fixed;\r\n  width: 100%;\n}\n.box .nav uni-view[data-v-d5445b46] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  height: 60rpx;\r\n  line-height: 60rpx;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\r\n  color: #fff;\n}\n.box .nav uni-view + uni-view[data-v-d5445b46] {\r\n  border-left: 3rpx solid #aaa;\n}\n.box .contentBox[data-v-d5445b46] {\r\n  padding-top: 60rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n.box[data-v-d5445b46] {\r\n  min-height: calc(100vh);\n}\n.box .nav[data-v-d5445b46] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  -webkit-box-shadow: 3rpx 3rpx 6rpx #aaa;\r\n          box-shadow: 3rpx 3rpx 6rpx #aaa;\r\n  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.8)), color-stop(rgba(68, 68, 68, 0.8)), to(rgba(0, 0, 0, 0.8)));\r\n  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8), rgba(68, 68, 68, 0.8), rgba(0, 0, 0, 0.8));\r\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(68, 68, 68, 0.8), rgba(0, 0, 0, 0.8));\r\n  position: fixed;\r\n  width: 100%;\n}\n.box .nav uni-view[data-v-d5445b46] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  height: 60rpx;\r\n  line-height: 60rpx;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\r\n  color: #fff;\n}\n.box .nav uni-view + uni-view[data-v-d5445b46] {\r\n  border-left: 3rpx solid #aaa;\n}\n.box .contentBox[data-v-d5445b46] {\r\n  padding-top: 60rpx;\n}\n.box .noRcord[data-v-d5445b46] {\r\n  margin: 100rpx auto;\r\n  text-align: center;\r\n  color: rgba(22, 22, 22, 0.3);\n}\n.box .noRcord .noIcon[data-v-d5445b46] {\r\n  font-size: 200rpx;\r\n  font-weight: 700;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -4766,7 +4816,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../辅助软件/HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\r\n/* 引入icon */\n@font-face {\r\n  font-family: 'iconfont';  /* project id 2164711 */\r\n  src: url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.eot');\r\n  src: url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.eot?#iefix') format('embedded-opentype'),\r\n  url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.woff2') format('woff2'),\r\n  url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.woff') format('woff'),\r\n  url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.ttf') format('truetype'),\r\n  url('https://at.alicdn.com/t/font_2164711_zrvf6mfuip.svg#iconfont') format('svg');\n}\n.iconfont {\r\n  font-family: \"iconfont\" !important;\n}\r\n/*每个页面公共css */\n.bc {\r\n  background-color: #f7e8aa;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\r\n/* 引入icon */\n@font-face {\r\n  font-family: 'iconfont';  /* project id 2164711 */\r\n  src: url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.eot');\r\n  src: url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.eot?#iefix') format('embedded-opentype'),\r\n  url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.woff2') format('woff2'),\r\n  url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.woff') format('woff'),\r\n  url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.ttf') format('truetype'),\r\n  url('https://at.alicdn.com/t/font_2164711_4g41u9y7cst.svg#iconfont') format('svg');\n}\n.iconfont {\r\n  font-family: \"iconfont\" !important;\n}\r\n/*每个页面公共css */\n.bc {\r\n  background-color: #f7e8aa;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

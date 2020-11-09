@@ -41,7 +41,11 @@
 		<!-- 导航栏 结束 -->
 		<!-- 列表 开始 -->
 		<view class="contentBox">
-			<my-collapse-list :list="list" />
+			<my-collapse-list v-if="list[0]" :list="list" />
+			<view v-else class="noRcord iconfont">
+				<view class="noIcon">&#xe602;</view>
+				<view>暂无记录</view>
+			</view>
 		</view>
 		<!-- 列表 结束 -->
 	</view>
@@ -101,16 +105,10 @@
 			}
 		},
 		onLoad(query) {
-			!!query.index && (this.situationIndex = query.index)
-			// 获取明细数据
-			this.getRecords()
-		},
-		mounted() {
 			// 获取支出和收入标签
 			this.payTags = this.$store.getters['tags/payTags'].map(item => item.content)
 			this.incomeTags = this.$store.getters['tags/incomeTags'].map(item => item.content)
-			// 设置标签
-			this.setTags(this.situationIndex)
+			!!(+query.index) && (this.situationIndex = +query.index)
 		},
 		watch: {
 			'situationIndex'() {
@@ -203,6 +201,18 @@
 		// 详细内容
 		.contentBox {
 			padding-top: 60rpx;
+		}
+		
+		// 没有记录
+		.noRcord {
+			margin: 100rpx auto;
+			text-align: center;
+			color: rgba(22, 22, 22, .3);
+			
+			.noIcon {
+				font-size: 200rpx;
+				font-weight: 700;
+			}
 		}
 	}
 </style>

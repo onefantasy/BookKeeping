@@ -23,3 +23,11 @@ export function getDetail(data) {
 		data
 	})
 }
+
+export function delRecord(data) {
+	return request({
+		url: '/records/delRecord',
+		method: 'POST',
+		data
+	})
+}

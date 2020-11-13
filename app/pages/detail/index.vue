@@ -41,7 +41,7 @@
 		<!-- 导航栏 结束 -->
 		<!-- 列表 开始 -->
 		<view class="contentBox">
-			<my-collapse-list v-if="list[0]" :list="list" />
+			<my-collapse-list v-if="list[0]" :list="list" @delSuccess="getRecords" />
 			<view v-else class="noRcord iconfont">
 				<view class="noIcon">&#xe602;</view>
 				<view>暂无记录</view>
@@ -101,7 +101,9 @@
 				// 展示形式索引
 				showTypeIndex: 0,
 				// 信息列表
-				list: []
+				list: [],
+				// 是否发起请求
+				isGetRecord: false
 			}
 		},
 		onLoad(query) {
@@ -109,6 +111,10 @@
 			this.payTags = this.$store.getters['tags/payTags'].map(item => item.content)
 			this.incomeTags = this.$store.getters['tags/incomeTags'].map(item => item.content)
 			!!(+query.index) && (this.situationIndex = +query.index)
+		},
+		onShow() {
+			// 如果当前没有发起请求，则发起
+			this.isGetRecord || this.getRecords()
 		},
 		watch: {
 			'situationIndex'() {
@@ -125,12 +131,13 @@
 				}
 				this.tagsIndex !== 0 && (data.tags = this.tags[this.tagsIndex])
 				this.situationIndex !== 0 && (data.flow = this.situation[this.situationIndex])
+				this.isGetRecord = true
 				this.$store.dispatch('record/getDetail', data).then(res => {
 					this.list = res.list.map(item => {
 						item.tags = !!item.tags ? item.tags.split(',') : []
 						return item
 					})
-				})
+				}).finally(() => this.isGetRecord = false)
 			},
 			tagsChange(e) {
 				this.tagsIndex = e.target.value

@@ -111,20 +111,24 @@
 			'money'() {
 				const flag = this.money < 0
 				this.flow = flag ? '支出' : '收入'
+				console.log('tags clean!')
 				this.tags = []
 				this.selectTags = flag ? this.$store.getters['tags/payTags'] : this.$store.getters['tags/incomeTags']
 			}
 		},
 		onLoad(e) {
 			this.money = e.money || 0
+			delete e.money
 			const keys = Object.keys(e)
 			for (let key of keys) {
 				if (key === 'tags') {
 					this[key] = e[key].split(',')
+					console.log(key + ':', this[key])
 					continue
 				}
 				this[key] = e[key]
 			}
+			console.log('tags1:', this.tags)
 		},
 		methods: {
 			// 选择标签
@@ -153,8 +157,9 @@
 					}, 1000)
 					return false
 				}
+				console.log('save tags:', this.tags)
 				const data = {
-					rid: this.$store.getters['user/account'] + Date.now(),
+					rid: this.rid || this.$store.getters['user/account'] + Date.now(),
 					money: this.money,
 					flow: this.flow,
 					date: this.date,

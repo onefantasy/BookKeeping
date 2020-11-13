@@ -3009,7 +3009,14 @@ var render = function() {
         { staticClass: _vm._$g(17, "sc"), attrs: { _i: 17 } },
         [
           _vm._$g(18, "i")
-            ? _c("my-collapse-list", { attrs: { _i: 18 } })
+            ? _c("my-collapse-list", {
+                attrs: { _i: 18 },
+                on: {
+                  delSuccess: function($event) {
+                    return _vm.$handleViewEvent($event)
+                  }
+                }
+              })
             : _c(
                 "v-uni-view",
                 { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },

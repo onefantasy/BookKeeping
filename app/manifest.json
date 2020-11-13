@@ -111,5 +111,13 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "title" : "记账",
+        "router" : {
+            "mode" : "history",
+            "base" : "/h5/"
+        },
+        "domain" : "http://47.112.170.34:8082"
     }
 }

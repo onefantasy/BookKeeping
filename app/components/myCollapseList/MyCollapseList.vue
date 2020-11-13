@@ -61,7 +61,10 @@
 		},
 		mixins: [fun],
 		data() {
-			return {}
+			return {
+				// 想要删除的记录
+				delItem: null
+			}
 		},
 		methods: {
 			// 跳转到编辑页面
@@ -78,12 +81,26 @@
 			// 调用删除弹窗
 			delPupop(item) {
 				this.$refs.delPopup.open()
+				this.delItem = item
 			},
 			close(done) {
+				this.delItem = null
 				done()
 			},
 			confirm(done) {
 				done()
+				const data = {
+					rid: this.delItem.rid,
+					account: this.$store.getters['user/account']
+				}
+				this.delItem = null
+				this.$store.dispatch('record/delRecord', data).then(res => {
+					uni.showToast({
+						title: '删除成功！',
+						icon: 'none'
+					})
+					this.$emit('delSuccess')
+				})
 			}
 		}
 	}

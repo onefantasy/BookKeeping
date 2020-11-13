@@ -107,12 +107,10 @@ router.get('/getDetail', async (ctx, next) => {
 		where.tags = { [Op.substring]: params.tags }
 		delete params.tags
 	}
-	console.log('params:', params)
 	const keys = Object.keys(params)
 	for (let item of keys) {
 		where[item] = params[item]
 	}
-	console.log('where:', where)
 	// 查询
 	const list = await records.findAll({
 		where,
@@ -124,6 +122,25 @@ router.get('/getDetail', async (ctx, next) => {
 		code: list ? 200 : 500,
 		message: `记录查询${ list ? '成功' : '失败' }！`,
 		list
+	}
+})
+
+// 删除记录
+router.post('/delRecord', async (ctx, next) => {
+	const { rid, account } = ctx.request.body
+	if (!account) {
+		ctx.body = {
+			code: 103,
+			message: '参数出错！'
+		}
+		return false
+	}
+	// 删除操作
+	const where = { rid, account }
+	const res = await records.destroy({ where })
+	ctx.body = {
+		code: res ? 200 : 500,
+		message: `删除${ res ? '成功' : '失败' }!`
 	}
 })
 

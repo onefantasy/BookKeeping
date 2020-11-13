@@ -1,9 +1,10 @@
 const router = require('koa-router')()
 
 router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: '你好，世界！!!!!'
-  })
+  ctx.redirect('/h5')
+  // await ctx.render('index', {
+  //   title: '你好，世界！!!!!'
+  // })
 })
 
 router.get('/string', async (ctx, next) => {

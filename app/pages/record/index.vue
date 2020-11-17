@@ -21,8 +21,8 @@
 					v-for="(item, index) in selectTags" 
 					:key="index + item" 
 					:tagContent="item.content" 
-					:isWhite="tags.indexOf(item) < 0 ? true : false"
-					@click.native="selectTag(item)"
+					:isWhite="tags.indexOf(item.content) < 0 ? true : false"
+					@click.native="selectTag(item.content)"
 				></my-tag>
 			</view>
 			<view v-else class="tags textNone">
@@ -62,16 +62,16 @@
 	import myTag from '@/components/myTag/MyTag.vue'
 	
 	function getDate(type) {
-		const date = new Date();
+		const date = new Date()
 	
-		let year = date.getFullYear();
-		let month = date.getMonth() + 1;
-		let day = date.getDate();
+		let year = date.getFullYear()
+		let month = date.getMonth() + 1
+		let day = date.getDate()
 
-		month = month > 9 ? month : '0' + month;;
-		day = day > 9 ? day : '0' + day;
+		month = month > 9 ? month : '0' + month
+		day = day > 9 ? day : '0' + day
 	
-		return `${year}-${month}-${day}`;
+		return `${year}-${month}-${day}`
 	}
 	
 	function getTime() {
@@ -104,15 +104,17 @@
 				// 备注
 				info: '',
 				// 资金流动
-				flow: ''
+				flow: '',
+				// 是否改动tags
+				isChangeTags: true
 			}
 		},
 		watch: {
 			'money'() {
 				const flag = this.money < 0
 				this.flow = flag ? '支出' : '收入'
-				console.log('tags clean!')
-				this.tags = []
+				this.isChangeTags && (this.tags = [])
+				this.isChangeTags = true
 				this.selectTags = flag ? this.$store.getters['tags/payTags'] : this.$store.getters['tags/incomeTags']
 			}
 		},
@@ -123,12 +125,11 @@
 			for (let key of keys) {
 				if (key === 'tags') {
 					this[key] = e[key].split(',')
-					console.log(key + ':', this[key])
+					this.isChangeTags = false
 					continue
 				}
 				this[key] = e[key]
 			}
-			console.log('tags1:', this.tags)
 		},
 		methods: {
 			// 选择标签

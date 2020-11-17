@@ -39,20 +39,32 @@
 			<!-- 展示形式 结束 -->
 		</view>
 		<!-- 导航栏 结束 -->
-		<!-- 列表 开始 -->
-		<view class="contentBox">
-			<my-collapse-list v-if="list[0]" :list="list" @delSuccess="getRecords" />
-			<view v-else class="noRcord iconfont">
-				<view class="noIcon">&#xe602;</view>
-				<view>暂无记录</view>
-			</view>
+		<!-- 有数据 开始 -->
+		<view v-if="list[0]" class="contentBox">
+			<!-- 列表(数据) 开始 -->
+			<my-collapse-list v-if="showTypeIndex === 0" :list="list" @delSuccess="getRecords" />
+			<!-- 列表(数据) 结束 -->
+			<!-- 列表(日期) 开始-->
+			<my-collapse-date v-else-if="showTypeIndex === 1" :list="list" />
+			<!-- 列表(日期) 结束-->
+			<!-- 图表 开始 -->
+			<my-chart v-else-if="showTypeIndex === 2" :list="list" />
+			<!-- 图标 结束 -->
 		</view>
-		<!-- 列表 结束 -->
+		<!-- 有数据 结束 -->
+		<!-- 无数据 开始 -->
+		<view v-else class="noRcord iconfont">
+			<view class="noIcon">&#xe602;</view>
+			<view>暂无记录</view>
+		</view>
+		<!-- 无数据 结束 -->
 	</view>
 </template>
 
 <script>
 	import myCollapseList from '@/components/myCollapseList/MyCollapseList.vue'
+	import myCollapseDate from '@/components/myCollapseDate/myCollapseDate.vue'
+	import myChart from '@/components/myChart/MyChart.vue'
 	
 	function getDate(type) {
 		const date = new Date()
@@ -74,7 +86,9 @@
 	
 	export default {
 		components: {
-			myCollapseList
+			myCollapseList,
+			myCollapseDate,
+			myChart
 		},
 		data() {
 			return {
@@ -97,7 +111,7 @@
 				// 结束时间
 				endDate: getDate('end'),
 				// 展示形式
-				showType: ['列表', '统计'],
+				showType: ['列表(数据)', '列表(日期)', '统计'],
 				// 展示形式索引
 				showTypeIndex: 0,
 				// 信息列表
@@ -212,7 +226,8 @@
 		
 		// 没有记录
 		.noRcord {
-			margin: 100rpx auto;
+			margin: 0 auto;
+			padding-top: 100rpx;
 			text-align: center;
 			color: rgba(22, 22, 22, .3);
 			
